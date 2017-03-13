@@ -1,0 +1,21 @@
+svg {
+	perspective: 740px;
+}
+
+@keyframes ciuffo {
+	0% {
+		height: 0%;
+	}
+
+	100% {
+		height: 50%;
+	}
+}
+
+#gesu_ciuffo {
+	  animation-name : ciuffo;
+  animation-duration : 1s;
+  animation-iteration-count : 10;
+  animation-direction  : alternate;
+  animation-fill-mode : farwards;
+}
