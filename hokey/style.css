@@ -37,3 +37,24 @@ svg {
 #h1_guanto {
 	transform-origin: 0% 0%;
 }
+
+
+#h3_testa_container{
+    transform-origin: 50% 50%;
+    animation : say_no 1s infinite;
+}
+
+@keyframes say_no {
+	0% {
+		transform : rotate3d(3.2,1,.5,25deg);
+	}
+
+	50% {
+		transform : rotate3d(3.2,-1,-0.5,25deg);
+	}
+
+	100% {
+		transform : rotate3d(3.2,1,.5,25deg);
+	}
+}
+

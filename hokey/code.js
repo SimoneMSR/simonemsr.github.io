@@ -1,6 +1,7 @@
 (function(window, document, undefined){
 
 	var centroMazza = { x : 850, y : 500};
+    var inclinazioneMazza=0;
 	var anim;
 	var container;
 	var mazza, guanto;
@@ -56,9 +57,15 @@
         var h=event.pageY-centroMazza.y;
         var l=event.pageX-centroMazza.x;
         var d= Math.sqrt(h*h + l*l);
-        var deg=Math.asin(h/d) * 90 +30;
-        if(event.pageX<centroMazza.x && event.pageY>centroMazza.y)
-        	deg+=90;
+        var deg=Math.asin(h/d) * 90 +inclinazioneMazza;
+        console.log(deg);
+        if(event.pageX<centroMazza.x) {
+            if(event.pageY<centroMazza.y)
+                deg=inclinazioneMazza+90-deg;
+            else
+                deg=deg;
+
+        }
         mazza.style.transform = 'rotate(' + deg + 'deg)';
         guanto.style.transform = 'rotate(' + deg/10 + 'deg)';
         if(deg>45){
