@@ -58,19 +58,21 @@
         var l=event.pageX-centroMazza.x;
         var d= Math.sqrt(h*h + l*l);
         var deg=Math.asin(h/d) * 90 +inclinazioneMazza;
+        deg = Math.atan2( (event.pageY- centroMazza.y) ,event.pageX- centroMazza.x)*(180/Math.PI);
         console.log(deg);
-        if(event.pageX<centroMazza.x) {
-            if(event.pageY<centroMazza.y)
-                deg=inclinazioneMazza+90-deg;
-            else
-                deg=deg;
+        // if(event.pageX<centroMazza.x) {
+        //     if(event.pageY<centroMazza.y)
+        //         deg=inclinazioneMazza+90-deg;
+        //     else
+        //         deg=deg;
 
-        }
+        // }
         mazza.style.transform = 'rotate(' + deg + 'deg)';
-        guanto.style.transform = 'rotate(' + deg/10 + 'deg)';
-        if(deg>45){
+        if(Math.abs(deg) >90){
+       		guanto.style.transform = 'rotate(' + -deg/10 + 'deg)';
         	guanto.style.transform = guanto.style.transform + "scaleX(-1) translateX(-100%)";
-        }
+        }else
+        	guanto.style.transform = 'rotate(' + deg/10 + 'deg)';
     }
 
 })(window, document, undefined);
