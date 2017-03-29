@@ -1,0 +1,30 @@
+{
+  "name": "monty",
+  "version": "1.0.0",
+  "description": "monty",
+  "main": "index.js",
+  "dependencies": {
+    "paper": "0.10.2",
+    "sugar": "^2.0.4",
+    "svg.js": "^2.5.1",
+    "svg.pathmorphing.js": "^0.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SimoneMSR/monty.git"
+  },
+  "keywords": [
+    "svg",
+    "animation"
+  ],
+  "author": "Simone D'Amario",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SimoneMSR/monty/issues"
+  },
+  "homepage": "https://github.com/SimoneMSR/monty#readme"
+}
