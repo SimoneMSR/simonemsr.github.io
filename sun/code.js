@@ -43,8 +43,11 @@ window.onload = function () {
 		for( index in path_ids){
 			var path = SVG.get("#" + path_ids[index]);
 			var path_flip = SVG.get("#" + flippet_path_ids[index]);
-			path.animate(3000, '>', 1000).plot(path_flip.array().toString());
+			path.animate(1000, '<>', 0).plot(path_flip.array().toString()).loop(true,true);
 		}
+
+		var circle = SVG.get("#path3359");
+		circle.animate(1000, '<>', 0).rotate(50).loop(true,true);
 
 
 		//SVG.get("#use3850").animate(2000, '>', 1000).flip(450);
