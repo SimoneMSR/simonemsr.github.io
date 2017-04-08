@@ -72,7 +72,7 @@ window.onload = function () {
 		}
 
 		var circle = SVG.get("#cerchio");
-		circle.animate(1000, '<>', 0).rotate(50).loop(true,true);
+		circle.animate(1000, '<>', 0).rotate(25).loop(true,true);
 
 
 		//SVG.get("#use3850").animate(2000, '>', 1000).flip(450);
