@@ -24,7 +24,7 @@ window.onload = function () {
 	var self=this;
 	var draw = SVG('drawing');
 	var client = new XMLHttpRequest();
-	client.open('GET', 'sun.svg');
+	client.open('GET', 'assets/sun.svg');
 	client.setRequestHeader("Content-Type", "image/svg+xml");
 	client.addEventListener("load", function(event) {
 		var svg = draw.svg(client.responseText);
