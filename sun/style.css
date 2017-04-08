@@ -6,3 +6,12 @@ drawing {
     left: 0;
     margin: auto;
 }
+
+svg {
+	background-color: rgb(100, 166, 211);
+}
+
+#drawing{
+	min-height: 500px;
+	height: 1px;
+}
