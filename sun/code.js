@@ -56,7 +56,7 @@ window.onload = function () {
 		,"use3996-0"];
 		var ray_square_ids = idsLike(/^path[0-9]*$/).sort();
 		var flipped_ray_square_ids = idsLike(/^path[0-9]*\-/).sort();
-		var group = idsLike(/^g11998/)[0];
+		var groups = idsLike(/^g[0-9]*/);
 
 		for( index in ray_path_ids){
 			var path = SVG.get("#" + ray_path_ids[index]);
@@ -69,6 +69,12 @@ window.onload = function () {
 			var path = SVG.get("#" + ray_square_ids[index]);
 			var path_flip = SVG.get("#" + flipped_ray_square_ids[index]);
 			path.animate(1000, '<>', 0).plot(path_flip.array().toString()).loop(true,true);
+		}
+
+		for (index in groups){
+			SVG.get("#" +groups[index]).mouseover(function(){
+				this.draggable();
+			});
 		}
 
 		var circle = SVG.get("#cerchio");
