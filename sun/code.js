@@ -16,9 +16,11 @@ function idsLike(pattern){
 	return A;
 }
 
-function findSquares(){
+function animateRays(){
 
 }
+
+
 
 window.onload = function () {
 	var self=this;
@@ -30,7 +32,7 @@ window.onload = function () {
 		var svg = draw.svg(client.responseText);
 		var svg_flip = SVG.get("#layer3");
 		svg_flip.hide();
-		var ray_path_ids= ["use3850", 
+		self.ray_path_ids= ["use3850", 
 		"use3976"
 		,"use3978"
 		,"use3980"
@@ -42,7 +44,7 @@ window.onload = function () {
 		,"use3992"
 		,"use3994"
 		,"use3996"];
-		var flipped_ray_path_ids =["use3850-3"
+		self.flipped_ray_path_ids =["use3850-3"
 		,"use3976-6"
 		,"use3978-0"
 		,"use3980-6"
@@ -54,25 +56,16 @@ window.onload = function () {
 		,"use3992-9"
 		,"use3994-2"
 		,"use3996-0"];
-		var ray_square_ids = idsLike(/^path[0-9]*$/).sort();
-		var flipped_ray_square_ids = idsLike(/^path[0-9]*\-/).sort();
-		var groups = idsLike(/^g[0-9]*/);
+		self.ray_square_ids = idsLike(/^path[0-9]*$/).sort();
+		self.flipped_ray_square_ids = idsLike(/^path[0-9]*\-/).sort();
+		self.groups = idsLike(/^g[0-9]*/);
 
-		for( index in ray_path_ids){
-			var path = SVG.get("#" + ray_path_ids[index]);
-			path.hide();
-			//var path_flip = SVG.get("#" + flipped_ray_path_ids[index]);
-			//path.animate(1000, '<>', 0).plot(path_flip.array().toString()).loop(true,true);
-		}
+		animateSquares();
+		animateRays();
 
-		for(index in ray_square_ids){
-			var path = SVG.get("#" + ray_square_ids[index]);
-			var path_flip = SVG.get("#" + flipped_ray_square_ids[index]);
-			path.animate(1000, '<>', 0).plot(path_flip.array().toString()).loop(true,true);
-		}
 
-		for (index in groups){
-			SVG.get("#" +groups[index]).mouseover(function(){
+		for (index in self.groups){
+			SVG.get("#" +self.groups[index]).mouseover(function(){
 				this.draggable();
 			});
 		}
@@ -84,4 +77,21 @@ window.onload = function () {
 		//SVG.get("#use3850").animate(2000, '>', 1000).flip(450);
 	});
 	client.send();
+
+	function animateRays(){
+		for( index in self.ray_path_ids){
+			var path = SVG.get("#" + self.ray_path_ids[index]);
+			path.hide();
+			//var path_flip = SVG.get("#" + flipped_ray_path_ids[index]);
+			//path.animate(1000, '<>', 0).plot(path_flip.array().toString()).loop(true,true);
+		}
+	}
+
+	function animateSquares(){
+		for(index in self.ray_square_ids){
+			var path = SVG.get("#" + self.ray_square_ids[index]);
+			var path_flip = SVG.get("#" + self.flipped_ray_square_ids[index]);
+			path.animate(1000, '<>', 0).plot(path_flip.array().toString()).loop(true,true);
+		}
+	}
 }
