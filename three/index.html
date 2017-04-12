@@ -55,47 +55,10 @@ title: sun
   //animation loop
     animate : function() {
       
-      this.currentPosition();
       
-      this.controls.isOnObject( false );
-      this.controls.update( Date.now() - this.time );
-      
-      
-      
-      
-      var items = [
-        this.point_sphere,
-        this.point_light
-      ];
-      
-      items.forEach(function(entry) {
-        
-      try{
-        
-          obj = entry;
-        
-          obj.position.x = params.xpos;
-          obj.position.y = params.ypos;
-          obj.position.z = params.zpos;
-      
-          obj.rotation.x = app.degra(params.xrot);
-          obj.rotation.y = app.degra(params.yrot);
-          obj.rotation.z = app.degra(params.zrot);
-        
-          obj.distance = params.distance;
-          obj.intensity = params.intensity;
-          
-        }catch(Excption){
-        
-        }
-        
-      });
-      
-      
-      
-      
+      app.controls.isOnObject( false );
+      app.controls.update( Date.now() - this.time );
       webGLRenderer.render(app.scene, app.camera);
-      this.time = Date.now();
   },
 		pointerlockchange : function ( event ) {
     
