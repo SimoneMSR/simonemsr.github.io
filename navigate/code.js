@@ -461,7 +461,7 @@ app.loop();
 
 }
 
-document.onload = function () {
+window.onload = function () {
 	activate();
 }
 
