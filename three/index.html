@@ -99,7 +99,7 @@ title: sun
         // create a camera, which defines where we're looking at.
         app.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
 		
-				 var controls = new THREE.PointerLockControls( camera );
+				 var controls = new THREE.PointerLockControls( app.camera );
       app.scene.add( controls.getObject() );
 
         // create a render and set the size
