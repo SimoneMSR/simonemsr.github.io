@@ -74,6 +74,25 @@ title: sun
 	    
     }
   },
+  
+  initialize : function() {
+  app.instructions.addEventListener( 'click', function ( event ) {
+
+		      this.style.display = 'none';
+
+		      // Ask the browser to lock the pointer
+		      app.element.requestPointerLock = app.element.requestPointerLock || app.element.mozRequestPointerLock ||
+            app.element.webkitRequestPointerLock;
+
+		      if ( /Firefox/i.test( navigator.userAgent ) ) {
+
+		    } else {
+          
+			        app.element.requestPointerLock();
+		    }
+
+	    }, false );
+  }
     
     
   //pointer lock error  
@@ -155,7 +174,7 @@ title: sun
             app.scene.add(group);
         });
 
-
+	app.initialize();
         render();
 
         // from THREE.js examples
