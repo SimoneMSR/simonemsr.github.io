@@ -1,6 +1,7 @@
 /**
  * @author me!
  */
+ function activate(){
 var app = {
 
   
@@ -458,7 +459,11 @@ app.listener();
 app.init(); 
 app.loop();
 
+}
 
+window.onload = function () {
+	activate();
+}
 
 /*
 
