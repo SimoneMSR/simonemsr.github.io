@@ -1,7 +1,7 @@
 /**
  * @author me!
  */
-document.onload = function () {
+ function activate(){
 var app = {
 
   
@@ -460,6 +460,9 @@ app.init();
 app.loop();
 
 }
+
+window.onload = function () {
+	//activate();
 }
 
 /*
