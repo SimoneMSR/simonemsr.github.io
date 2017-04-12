@@ -48,6 +48,10 @@ title: sun
   blocker : document.getElementById( 'blocker' ),
   instructions : document.getElementById( 'instructions' ),
 		element : document.body,
+		loop : function(){
+    app.animate();
+    requestAnimationFrame( app.loop );  
+  },
 		pointerlockchange : function ( event ) {
     
     havePointerLock = 'pointerLockElement' in document 
@@ -176,6 +180,7 @@ title: sun
 
 	app.initialize();
         render();
+		app.loop();
 
         // from THREE.js examples
         function generateSprite() {
