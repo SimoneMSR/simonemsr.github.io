@@ -30,6 +30,64 @@ title: sun
 
     // once everything is loaded, we run our Three.js stuff.
     function init() {
+	
+		var app= {
+		  //needed for scene
+  camera : null,
+  controls : null,
+  scene : null,
+  light : null,
+  time : Date.now(),
+  renderer : null,
+  
+  
+  cylinder : null,
+  
+  
+  //bits and pieces
+  blocker : document.getElementById( 'blocker' ),
+  instructions : document.getElementById( 'instructions' ),
+		element = document.body,
+		pointerlockchange : function ( event ) {
+    
+    havePointerLock = 'pointerLockElement' in document 
+    || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
+      
+    if ( havePointerLock ) {
+      
+		      if ( document.pointerLockElement === app.element || 
+               document.mozPointerLockElement === app.element || 
+               document.webkitPointerLockElement === app.element ) {
+
+			         app.controls.enabled = true;
+			         app.blocker.style.display = 'none';
+
+		      } else {
+
+			        app.controls.enabled = false;
+			        app.blocker.style.display = '-webkit-box';
+			        app.blocker.style.display = '-moz-box';
+			        app.blocker.style.display = 'box';
+			        app.instructions.style.display = '';
+
+		      }
+	    
+    }
+  },
+    
+    
+  //pointer lock error  
+  pointerlockerror : function ( event ) {
+    app.instructions.style.display = '';
+	}
+		};
+		      document.addEventListener( 'pointerlockchange', app.pointerlockchange, false );
+      document.addEventListener( 'mozpointerlockchange', app.pointerlockchange, false );
+	    document.addEventListener( 'webkitpointerlockchange', app.pointerlockchange, false );
+    
+      document.addEventListener( 'pointerlockerror', app.pointerlockerror, false );
+	    document.addEventListener( 'mozpointerlockerror', app.pointerlockerror, false );
+	    document.addEventListener( 'webkitpointerlockerror', app.pointerlockerror, false );
 
         var stats = initStats();
 
