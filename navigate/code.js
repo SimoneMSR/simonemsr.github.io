@@ -62,7 +62,7 @@ var app = {
 	    document.addEventListener( 'webkitpointerlockerror', app.pointerlockerror, false );
     
     
-    	this.instructions.addEventListener( 'click', function ( event ) {
+    	app.instructions.addEventListener( 'click', function ( event ) {
 
 		      this.style.display = 'none';
 
