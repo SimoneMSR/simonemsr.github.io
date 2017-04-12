@@ -92,15 +92,15 @@ title: sun
         var stats = initStats();
 
         // create a scene, that will hold all our elements such as objects, cameras and lights.
-        var scene = new THREE.Scene();
+        app.scene = new THREE.Scene();
 		
 
 
         // create a camera, which defines where we're looking at.
-        var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+        app.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
 		
 				 var controls = new THREE.PointerLockControls( camera );
-      scene.add( controls.getObject() );
+      app.scene.add( controls.getObject() );
 
         // create a render and set the size
         var webGLRenderer = new THREE.WebGLRenderer();
@@ -109,15 +109,15 @@ title: sun
         webGLRenderer.shadowMapEnabled = true;
 
         // position and point the camera to the center of the scene
-        camera.position.x = 10;
-        camera.position.y = 10;
-        camera.position.z = 10;
-        camera.lookAt(new THREE.Vector3(0, -2, 0));
+        app.camera.position.x = 10;
+        app.camera.position.y = 10;
+        app.camera.position.z = 10;
+        app.camera.lookAt(new THREE.Vector3(0, -2, 0));
 
         // add spotlight for the shadows
         var spotLight = new THREE.SpotLight(0xffffff);
         spotLight.position.set(20, 20, 20);
-        scene.add(spotLight);
+        app.scene.add(spotLight);
 
         // add the output of the renderer to the html element
         document.getElementById("WebGL-output").appendChild(webGLRenderer.domElement);
@@ -152,7 +152,7 @@ title: sun
             group = new THREE.PointCloud(geometry, material);
             group.sortParticles = true;
 
-            scene.add(group);
+            app.scene.add(group);
         });
 
 
@@ -201,7 +201,7 @@ title: sun
 
             // render using requestAnimationFrame
             requestAnimationFrame(render);
-            webGLRenderer.render(scene, camera);
+            webGLRenderer.render(app.scene, app.camera);
         }
 
         function initStats() {
