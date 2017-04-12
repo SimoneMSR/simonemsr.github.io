@@ -462,7 +462,7 @@ app.loop();
 }
 
 window.onload = function () {
-	setTimeout(activate, 10000);
+	//setTimeout(activate, 10000);
 }
 
 /*
