@@ -1,0 +1,32 @@
+.a {
+	background-image: url('a.png');
+	height: 155px;
+    width: 68px;
+}
+
+.up-down {
+	animation-name : up-down;
+	animation-duration : 1s;
+	animation-direction: alternate;
+	animation-timing-function: linear;
+	animation-delay: 2s;
+	animation-iteration-count: infinite;
+}
+
+body {
+	background-color: black
+}
+
+@keyframes up-down {
+	0% {
+		 
+	}
+
+	20% {
+		background-position-y: -100%;
+	}
+
+	100%{
+		
+	}
+}
