@@ -1,32 +1,169 @@
-.a {
-	background-image: url('a.png');
+.letter , .letter > span {
 	height: 155px;
-    width: 68px;
+	width: 68px;
+	display: inline-block;
+	text-align: center;
 }
 
-.up-down {
-	animation-name : up-down;
-	animation-duration : 1s;
-	animation-direction: alternate;
+.a {
+	background-image: url('assets/letters/a.png');
+}
+
+.b {
+	background-image: url('assets/letters/b.png');
+}
+
+.c {
+	background-image: url('assets/letters/c.png');
+	width : 60px!important;
+}
+
+.d {
+	background-image: url('assets/letters/d.png');
+	width : 60px!important;
+}
+
+.e {
+	background-image: url('assets/letters/e.png');
+	width : 50px!important;
+}
+
+.f {
+	background-image: url('assets/letters/f.png');
+}
+
+.g {
+	background-image: url('assets/letters/g.png');
+	width : 60px!important;
+}
+
+.h {
+	background-image: url('assets/letters/h.png');
+	width : 60px!important;
+}
+
+.i {
+	background-image: url('assets/letters/i.png');
+	width : 27px!important;
+}
+
+.l {
+	background-image: url('assets/letters/l.png');
+	width : 50px!important;
+}
+
+.m {
+	background-image: url('assets/letters/m.png');
+}
+
+.n {
+	background-image: url('assets/letters/n.png');
+	width : 67px!important;
+}
+
+.o {
+	background-image: url('assets/letters/o.png');
+}
+
+.p {
+	background-image: url('assets/letters/p.png');
+}
+
+.q {
+	background-image: url('assets/letters/q.png');
+}
+
+.r {
+	background-image: url('assets/letters/r.png');
+}
+
+.s {
+	background-image: url('assets/letters/s.png');
+	width : 60px!important;
+}
+
+.t {
+	background-image: url('assets/letters/t.png');
+	width : 60px!important;
+}
+
+.u {
+	background-image: url('assets/letters/u.png');
+}
+
+.v {
+	background-image: url('assets/letters/v.png');
+}
+
+.z {
+	background-image: url('assets/letters/z.png');
+}
+
+.y {
+	background-image: url('assets/letters/y.png');
+}
+
+.w {
+	background-image: url('assets/letters/w.png');
+}
+
+.j {
+	background-image: url('assets/letters/j.png');
+}
+
+.up {
+	animation-name : up;
+	animation-duration : 0.5s;
 	animation-timing-function: linear;
-	animation-delay: 2s;
-	animation-iteration-count: infinite;
+	animation-delay: 0s;
+	animation-iteration-count: 1;
+	animation-fill-mode: forwards;
 }
 
 body {
 	background-color: black
 }
 
-@keyframes up-down {
-	0% {
-		 
+@keyframes up {
+	100% {
+		background-position-y: -99%;
+	}
+}
+
+@keyframes down {
+	0%{
+		background-position-y: -99%;
+	}
+	100% {
+		background-position-y: 0%;
 	}
 
-	20% {
-		background-position-y: -100%;
+}
+
+.down {
+	animation-name : down;
+	animation-duration : 0.5s;
+	animation-timing-function: linear;
+	animation-delay: 0s;
+	animation-iteration-count: 1;
+	animation-fill-mode: forwards;
+}
+
+div{
+	animation: rotate;
+	animation-duration : 0.5s;
+	animation-timing-function: linear;
+	animation-delay: 0s;
+	animation-iteration-count: 1;
+	animation-fill-mode: forwards;
+    transform-origin: 0px;
+}
+
+@keyframes rotate {
+	0%{
+		transform: rotate(60deg);
+	}
+	100% {
 	}
 
-	100%{
-		
-	}
 }

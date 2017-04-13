@@ -72,9 +72,6 @@ window.onload = function () {
 
 		var circle = SVG.get("#cerchio");
 		circle.animate(1000, '<>', 0).rotate(25).loop(true,true);
-
-
-		//SVG.get("#use3850").animate(2000, '>', 1000).flip(450);
 	});
 	client.send();
 
@@ -91,7 +88,10 @@ window.onload = function () {
 		for(index in self.ray_square_ids){
 			var path = SVG.get("#" + self.ray_square_ids[index]);
 			var path_flip = SVG.get("#" + self.flipped_ray_square_ids[index]);
-			path.animate(1000, '<>', 0).plot(path_flip.array().toString()).loop(true,true);
+			//path.animate(1000, '<>', 0).plot(path_flip.array().toString()).loop(true,true);
+			path.mouseover(function(){
+				this.fill({ color: '#f03' });
+			})
 		}
 	}
 }
