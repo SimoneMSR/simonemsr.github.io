@@ -7,10 +7,6 @@ drawing {
     margin: auto;
 }
 
-svg {
-	background-color: rgb(100, 166, 211);
-}
-
 #drawing{
 }
 
@@ -21,4 +17,25 @@ html, body, .container, #drawing{
 
 #layer2{
 	transform: scale(0.5) translate(-40%,-20%);
+}
+
+@keyframes rotate {
+	100%{
+		transform: rotate(365deg);
+	}
+}
+
+path.rotate{
+	animation: rotate;
+	animation-duration : 0.5s;
+	animation-timing-function: linear;
+	animation-delay: 0s;
+	animation-iteration-count: 1;
+	animation-fill-mode: forwards;
+    transform-origin: 50% 50%;
+    -webkit-transform-origin : 50% 50%;
+}
+
+#background {
+	width : 100%;
 }
