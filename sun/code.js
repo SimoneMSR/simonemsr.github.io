@@ -94,7 +94,10 @@ window.onload = function () {
 	function drawBackground(){
 		//var image = draw.image('/assets/coralli.gif');
 		loadSVG('corallo.svg',function(svg){
-			SVG.get('background').back();
+			self.elements.background = SVG.get('background');
+			self.elements.background.back();
+			self.elements.background.node.attributes.removeNamedItem('width');
+			self.elements.background.node.attributes.removeNamedItem('height');
 			self.elements.pesce1=SVG.get('pesce1');
 			self.elements.pesce2=SVG.get('pesce2');
 			self.elementsGroups = {};
@@ -183,7 +186,6 @@ window.onload = function () {
 	function findNearestElement(point){
 		var distance=1000000;
 		var found =null;
-		console.log(point.x + " " + point.y+ " " + Math.sqrt((point.x-self.elements['pesce1'].cx())^2+(point.y-self.elements['pesce1'].cy())^2))
 		for(var element of Object.keys(self.elements)){
 			element=self.elements[element];
 			var last_distance=Math.sqrt((point.x-element.cx())^2+(point.y-element.cy())^2);
