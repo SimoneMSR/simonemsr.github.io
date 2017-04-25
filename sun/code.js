@@ -71,8 +71,9 @@ window.onload = function () {
 		for (index in self.groups){
 			SVG.get("#" +self.groups[index]).draggable()
 			.on('dragmove', function(event){
-				if(findNearestElement(event.detail.p)==self.elements.pesce2)
-					SVG.get(this.node.id).stop();
+				var foundFish = findNearestElement(event.detail.p)
+				if(foundFish)
+					foundFish.fill('#f06');
 
 			});
 		}
@@ -96,6 +97,40 @@ window.onload = function () {
 			SVG.get('background').back();
 			self.elements.pesce1=SVG.get('pesce1');
 			self.elements.pesce2=SVG.get('pesce2');
+			self.elementsGroups = {};
+			self.elementsGroups.bolle1=SVG.get('bolle1');
+			self.elementsGroups.bolle2=SVG.get('bolle2');
+			self.elementsGroups.bolle3=SVG.get('bolle3');
+			self.elementsGroups.bolle4=SVG.get('bolle4');
+			self.elementsGroups.bolle5=SVG.get('bolle5');
+			self.elementsGroups.bolle6=SVG.get('bolle6');
+			self.elementsGroups.bolle1.hide();
+			self.elementsGroups.bolle2.hide();
+			self.elementsGroups.bolle3.hide();
+			self.elementsGroups.bolle4.hide();
+			self.elementsGroups.bolle5.hide();
+			self.elementsGroups.bolle6.hide();
+			self.elements.pesce1.node.attributes.removeNamedItem('style');
+			self.elements.pesce2.node.attributes.removeNamedItem('style');
+			showRandomBubbles();
+			
+		});
+	}
+
+	function showRandomBubbles(){
+		setTimeout(function(){showRandomBubble(2000,4000)},1000);
+		setTimeout(function(){showRandomBubble(2000,4000)},1000);
+		setTimeout(function(){showRandomBubble(500,10000)},500);
+	}
+
+	function showRandomBubble(minInterval,maxInterval){
+		var keys=Object.keys(self.elementsGroups);
+		var randomBubbleGroup= self.elementsGroups[keys[Math.floor(Math.random()*keys.length)]];
+		var randomBubble = randomBubbleGroup.node.children[Math.floor(Math.random()*randomBubbleGroup.node.children.length)];
+		var path = self.draw.path(SVG.get(randomBubble.id).array().toString());
+		path.animate().move(path.cx(),0).after(function(){
+			this.remove();
+			setTimeout(showRandomBubble,Math.random(minInterval,maxInterval));
 		});
 	}
 
@@ -148,10 +183,11 @@ window.onload = function () {
 	function findNearestElement(point){
 		var distance=1000000;
 		var found =null;
+		console.log(point.x + " " + point.y+ " " + Math.sqrt((point.x-self.elements['pesce1'].cx())^2+(point.y-self.elements['pesce1'].cy())^2))
 		for(var element of Object.keys(self.elements)){
 			element=self.elements[element];
 			var last_distance=Math.sqrt((point.x-element.cx())^2+(point.y-element.cy())^2);
-			if(last_distance<distance){
+			if(last_distance<distance && last_distance<2){
 				distance = last_distance;
 				found = element;
 			}
