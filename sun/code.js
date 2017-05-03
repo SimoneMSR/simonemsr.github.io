@@ -131,9 +131,9 @@ window.onload = function () {
 		var randomBubbleGroup= self.elementsGroups[keys[Math.floor(Math.random()*keys.length)]];
 		var randomBubble = randomBubbleGroup.node.children[Math.floor(Math.random()*randomBubbleGroup.node.children.length)];
 		var path = self.draw.path(SVG.get(randomBubble.id).array().toString());
-		path.animate().move(path.cx(),0).after(function(){
+		path.animate(randomBetween(500,1000)).move(path.cx(),0).after(function(){
 			this.remove();
-			setTimeout(showRandomBubble,Math.random(minInterval,maxInterval));
+			setTimeout(showRandomBubble,randomBetween(minInterval,maxInterval));
 		});
 	}
 
@@ -195,6 +195,10 @@ window.onload = function () {
 			}
 		}
 		return found;
+	}
+
+	function randomBetween(min,max){
+		return Math.floor(Math.random()*(max-min+1)+min);
 	}
 
 }

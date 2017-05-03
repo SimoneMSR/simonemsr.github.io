@@ -10,7 +10,7 @@ function random(a,b){
 }
 
 function words(){
-	var message = "italy goes india";
+	var message = "i like moving things";
 	var body = document.getElementsByTagName("div")[0];
 	for(letter of message){
 		var element = document.createElement("span");
