@@ -1,16 +1,18 @@
 .letter , .letter > span {
 	height: 155px;
-	width: 68px;
+	width: 87px;
 	display: inline-block;
 	text-align: center;
 }
 
 .a {
 	background-image: url('assets/letters/a.png');
+	width: 68px!important;
 }
 
 .b {
 	background-image: url('assets/letters/b.png');
+	width: 66px!important;
 }
 
 .c {
@@ -30,6 +32,7 @@
 
 .f {
 	background-image: url('assets/letters/f.png');
+	width: 54px!important;
 }
 
 .g {
@@ -54,6 +57,7 @@
 
 .m {
 	background-image: url('assets/letters/m.png');
+	width: 85px!important;
 }
 
 .n {
@@ -63,18 +67,22 @@
 
 .o {
 	background-image: url('assets/letters/o.png');
+	width : 70px!important;
 }
 
 .p {
 	background-image: url('assets/letters/p.png');
+	width : 63px!important;
 }
 
 .q {
 	background-image: url('assets/letters/q.png');
+	width : 64px!important;
 }
 
 .r {
 	background-image: url('assets/letters/r.png');
+	width : 63px!important;
 }
 
 .s {
@@ -89,26 +97,37 @@
 
 .u {
 	background-image: url('assets/letters/u.png');
+	width : 67px!important;
 }
 
 .v {
 	background-image: url('assets/letters/v.png');
+	width : 67px!important;
+}
+
+.x {
+	background-image: url('assets/letters/x.png');
+	width : 67px!important;
 }
 
 .z {
 	background-image: url('assets/letters/z.png');
+	width : 57px!important;
 }
 
 .y {
 	background-image: url('assets/letters/y.png');
+	width : 67px!important;
 }
 
 .w {
 	background-image: url('assets/letters/w.png');
+	width : 93px!important;
 }
 
 .j {
 	background-image: url('assets/letters/j.png');
+	width : 44px!important;
 }
 
 .up {

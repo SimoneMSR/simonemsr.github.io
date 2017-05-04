@@ -10,14 +10,21 @@ function random(a,b){
 }
 
 function words(){
-	var message = "i like moving things";
+	var message = "abcdefghilmnopqrstuvzxywjk";
 	var body = document.getElementsByTagName("div")[0];
 	for(letter of message){
-		var element = document.createElement("span");
-		element.innerHTML="<span></span>";
-		element.classList.add("letter");
-		if(letter !=' ')
-		element.children[0].classList.add(letter);
+		switch (letter) {
+			case '-' : {
+				var element = document.createElement("div");
+			} break;
+			default :  {
+				var element = document.createElement("span");
+				element.innerHTML="<span></span>";
+				element.classList.add("letter");
+				if(letter !=' ')
+					element.classList.add(letter);
+			}
+		}
 		body.appendChild(element);
 	}
 }
@@ -26,7 +33,7 @@ function animate(time){
 	setTimeout(function(){
 		var letters = document.getElementsByClassName("letter");
 		for(letter of letters){
-			letter = letter.children[0];
+			//letter = letter.children[0];
 			if(Math.random()<0.3){
 				if(letter.classList.contains("up")){
 					letter.classList.remove("up");
