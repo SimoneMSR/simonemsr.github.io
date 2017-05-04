@@ -50,6 +50,11 @@
 	width : 27px!important;
 }
 
+.k {
+	background-image: url('assets/letters/k.png');
+	width : 64px!important;
+}
+
 .l {
 	background-image: url('assets/letters/l.png');
 	width : 50px!important;

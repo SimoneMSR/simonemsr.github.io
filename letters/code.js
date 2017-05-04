@@ -10,7 +10,7 @@ function random(a,b){
 }
 
 function words(){
-	var message = "abcdefghilmnopqrstuvzxywjk";
+	var message = "i-like-moving-things";
 	var body = document.getElementsByTagName("div")[0];
 	for(letter of message){
 		switch (letter) {
