@@ -7,8 +7,8 @@ function SVGSymbol(_paper,elems){
 	}
 }
 
-function idsLike(pattern){
-	var nodes= document.body.getElementsByTagName('*'),
+function idsLike(element,pattern){
+	var nodes= element.querySelectorAll('*'),
 	L= nodes.length, A= [], temp;
 	while(L){
 		var temp= nodes[--L].id || '';
@@ -23,9 +23,9 @@ function loadSVG(filename,callback){
 	client.open('GET', filename);
 	client.setRequestHeader("Content-Type", "image/svg+xml");
 	client.addEventListener("load", function(event) {
-		self.draw.svg(client.responseText);
+		var svg = self.draw.svg(client.responseText);
 		if(callback)
-			callback();
+			callback(svg);
 	});
 	client.send();
 }
@@ -33,9 +33,12 @@ function loadSVG(filename,callback){
 window.onload = function () {
 	self.draw = SVG('drawing');
 	drawBackground();
-	loadSVG('assets/sun.svg',function(svg) {
+	loadSVG('/assets/sun.svg',initSVGFile);
+
+	function initSVGFile() {
 		var svg_flip = SVG.get("#layer3");
 		svg_flip.hide();
+		self.elements.sun = SVG.get("sun");
 		self.ray_path_ids= ["use3850", 
 		"use3976"
 		,"use3978"
@@ -60,9 +63,9 @@ window.onload = function () {
 		,"use3992-9"
 		,"use3994-2"
 		,"use3996-0"];
-		self.ray_square_ids = idsLike(/^path[0-9]*$/).sort();
-		self.flipped_ray_square_ids = idsLike(/^path[0-9]*\-/).sort();
-		self.groups = idsLike(/^g[0-9]*/);
+		self.ray_square_ids = idsLike(self.elements.sun.node,/^path[0-9]*$/).sort();
+		self.flipped_ray_square_ids = idsLike(self.elements.sun.node, /^path[0-9]*\-/).sort();
+		self.groups = idsLike(self.elements.sun.node,/^g[0-9]*/);
 
 		animateSquares();
 		animateRays();
@@ -80,11 +83,11 @@ window.onload = function () {
 
 		var circle = SVG.get("#cerchio");
 		circle.animate(1000, '<>', 0).rotate(25).loop(true,true);
-	});
+	}
 
 	function animateRays(){
 		for( index in self.ray_path_ids){
-			var path = SVG.get("#" + self.ray_path_ids[index]);
+			var path = self.elements.sun.select("#" + self.ray_path_ids[index]).get(0);
 			path.hide();
 			//var path_flip = SVG.get("#" + flipped_ray_path_ids[index]);
 			//path.animate(1000, '<>', 0).plot(path_flip.array().toString()).loop(true,true);
@@ -95,6 +98,7 @@ window.onload = function () {
 		//var image = draw.image('/assets/coralli.gif');
 		loadSVG('corallo.svg',function(svg){
 			self.elements.background = SVG.get('background');
+			self.elements.background.select("#layer1").get(0).move(373.91979,-193.6882);
 			self.elements.background.back();
 			self.elements.background.node.attributes.removeNamedItem('width');
 			self.elements.background.node.attributes.removeNamedItem('height');
@@ -139,8 +143,8 @@ window.onload = function () {
 
 	function animateSquares(){
 		for(index in self.ray_square_ids){
-			var path = SVG.get("#" + self.ray_square_ids[index]);
-			var path_flip = SVG.get("#" + self.flipped_ray_square_ids[index]);
+			var path = self.elements.sun.select("#" + self.ray_square_ids[index]).get(0);
+			var path_flip = self.elements.sun.select("#" + self.flipped_ray_square_ids[index]).get(0);
 			path.animateSquarePath = path_flip;
 			path.becomeLike = becomeLike;
 			path.becomeLike();
@@ -159,7 +163,8 @@ window.onload = function () {
 
 	function becomeLike(_this,thisElement){
 		var i =0;
-		this.animate(1000, '<>', 0).plot(this.animateSquarePath.array().toString()).loop(true,true);
+		if(this.animateSquarePath != undefined)
+			this.animate(1000, '<>', 0).plot(this.animateSquarePath.array().toString()).loop(true,true);
 	}
 
 	function getRandomColor(){
@@ -188,8 +193,9 @@ window.onload = function () {
 		var found =null;
 		for(var element of Object.keys(self.elements)){
 			element=self.elements[element];
-			var last_distance=Math.sqrt((point.x-element.cx())^2+(point.y-element.cy())^2);
-			if(last_distance<distance && last_distance<2){
+			var last_distance=Math.sqrt(Math.pow(point.x-element.cx(),2)+Math.pow(point.y-element.cy(),2));
+			console.log(last_distance + "from " + element.node.id)
+			if(last_distance<distance && last_distance<10){
 				distance = last_distance;
 				found = element;
 			}
