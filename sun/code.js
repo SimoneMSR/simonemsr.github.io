@@ -1,5 +1,7 @@
-var self = this;
-self.elements={};
+var self = this.sun = {
+	elements : {},
+		groups : {}
+};
 function SVGSymbol(_paper,elems){
 	var svg = paper.project.importSVG(elems[0]);
 	svg.onFrame = function() {
@@ -32,16 +34,22 @@ function loadSVG(filename,callback){
 
 window.onload = function () {
 	self.draw = SVG('drawing');
-	drawBackground();
-	loadSVG('/assets/sun.svg',initSVGFile);
+	drawBackground()
+	.then(function(){
+		//drawAlghe();
+		//loadSVG('/assets/sun.svg',initSVGFile);
+		animaAlghe();
+	});
+
 
 	function initSVGFile() {
+		self.elements.sun = SVG.get("sun");
+		self.elements.sun.addTo(self.elements.background);
 		var svg_flip = SVG.get("#layer3");
 		svg_flip.hide();
-		self.elements.sun = SVG.get("sun");
-		self.ray_path_ids= ["use3850", 
-		"use3976"
-		,"use3978"
+		self.ray_path_ids= [/*"use3850", 
+		"use3976",*/
+		"use3978"
 		,"use3980"
 		,"use3982"
 		,"use3984"
@@ -51,9 +59,9 @@ window.onload = function () {
 		,"use3992"
 		,"use3994"
 		,"use3996"];
-		self.flipped_ray_path_ids =["use3850-3"
-		,"use3976-6"
-		,"use3978-0"
+		self.flipped_ray_path_ids =[/*"use3850-3",
+		"use3976-6", */
+		"use3978-0"
 		,"use3980-6"
 		,"use3982-2"
 		,"use3984-6"
@@ -69,58 +77,100 @@ window.onload = function () {
 
 		animateSquares();
 		animateRays();
+		var square = self.elements.sun.select("#" + self.ray_square_ids[0]).get(0);
+		square.show();
+		moveElementWithPath(square, self.elements.animated_ray,1);
 
 
 		for (index in self.groups){
-			SVG.get("#" +self.groups[index]).draggable()
-			.on('dragmove', function(event){
+			var drag = SVG.get("#" +self.groups[index]).draggable();
+			drag.on('dragmove', function(event){
 				var foundFish = findNearestElement(event.detail.p)
 				if(foundFish)
 					foundFish.fill('#f06');
 
 			});
-		}
+			drag.on('dragstart',function (event){
+				event.srcElement.style.visibility="none";
+			} );
 
-		var circle = SVG.get("#cerchio");
-		circle.animate(1000, '<>', 0).rotate(25).loop(true,true);
+		}
+		document.addEventListener('dragenter', function (event){
+			var e=event;
+		});
+		var cerchio = SVG.get("#cerchio");
+		cerchio.animate(1000, '<>', 0).rotate(25).loop(true,true);
 	}
 
 	function animateRays(){
 		for( index in self.ray_path_ids){
 			var path = self.elements.sun.select("#" + self.ray_path_ids[index]).get(0);
-			path.hide();
-			//var path_flip = SVG.get("#" + flipped_ray_path_ids[index]);
-			//path.animate(1000, '<>', 0).plot(path_flip.array().toString()).loop(true,true);
+			var path_flip = self.elements.sun.select("#" + self.flipped_ray_path_ids[index]).get(0);
+			self.elements.animated_ray = path.animate(1000, '<>', 0).plot(path_flip.array().toString()).loop(true,true);
 		}
 	}
 
+	function drawAlghe(){
+		return new Promise(function(resolve, reject) {
+			loadSVG('/assets/alghe.svg',function(){
+				self.elements.alghe = SVG.get('alghe');
+				self.elements.alghe.addTo(self.elements.background);
+				self.elements.alghe.alga1 = get(self.elements.alghe,"alga1");
+				self.elements.alghe.alga1_1 = get(self.elements.alghe,"alga1-1");
+				self.elements.alghe.alga1_1.hide();
+				self.elements.alghe.alga1.animate(1000, '<>', 0).plot(self.elements.alghe.alga1_1.array().toString()).loop(true,true);
+				resolve();
+			});
+		});
+	}
+
+	function animaAlghe(){
+		self.groups.alga1 = get(self.elements.background,"alga1");
+		self.groups.alga2 = get(self.elements.background,"alga2");
+		evolveGroup(self.groups.alga1);
+		evolveGroup(self.groups.alga2);
+	}
+
+	function evolveGroup(element){
+		var frames= idsLike(element.node, /^path[0-9]*\-/).sort();
+	}
+
 	function drawBackground(){
-		//var image = draw.image('/assets/coralli.gif');
-		loadSVG('corallo.svg',function(svg){
-			self.elements.background = SVG.get('background');
-			self.elements.background.select("#layer1").get(0).move(373.91979,-193.6882);
-			self.elements.background.back();
-			self.elements.background.node.attributes.removeNamedItem('width');
-			self.elements.background.node.attributes.removeNamedItem('height');
-			self.elements.pesce1=SVG.get('pesce1');
-			self.elements.pesce2=SVG.get('pesce2');
-			self.elementsGroups = {};
-			self.elementsGroups.bolle1=SVG.get('bolle1');
-			self.elementsGroups.bolle2=SVG.get('bolle2');
-			self.elementsGroups.bolle3=SVG.get('bolle3');
-			self.elementsGroups.bolle4=SVG.get('bolle4');
-			self.elementsGroups.bolle5=SVG.get('bolle5');
-			self.elementsGroups.bolle6=SVG.get('bolle6');
-			self.elementsGroups.bolle1.hide();
-			self.elementsGroups.bolle2.hide();
-			self.elementsGroups.bolle3.hide();
-			self.elementsGroups.bolle4.hide();
-			self.elementsGroups.bolle5.hide();
-			self.elementsGroups.bolle6.hide();
-			self.elements.pesce1.node.attributes.removeNamedItem('style');
-			self.elements.pesce2.node.attributes.removeNamedItem('style');
-			showRandomBubbles();
-			
+
+		return new Promise(function(resolve, reject) {
+		  // do a thing, possibly async, then…
+
+		  loadSVG('corallo.svg',function(svg){
+		  	self.elements.background = SVG.get('background');
+		  	self.elements.background.back();
+		  	//self.elements.background.node.attributes.removeNamedItem('width');
+		  	//self.elements.background.node.attributes.removeNamedItem('height');
+		  	self.elements.pesce1=SVG.get('pesce1');
+
+		  	self.elements.pesce1.node.addEventListener("mouseover", function (){
+		  		console.log("here's me");
+		  	})
+		  	self.elements.pesce1.findable = true;
+		  	self.elements.pesce2=SVG.get('pesce2');
+		  	self.elements.pesce2.findable = true;
+		  	self.elementsGroups = {};
+		  	self.elementsGroups.bolle1=SVG.get('bolle1');
+		  	self.elementsGroups.bolle2=SVG.get('bolle2');
+		  	self.elementsGroups.bolle3=SVG.get('bolle3');
+		  	self.elementsGroups.bolle4=SVG.get('bolle4');
+		  	self.elementsGroups.bolle5=SVG.get('bolle5');
+		  	self.elementsGroups.bolle6=SVG.get('bolle6');
+		  	self.elementsGroups.bolle1.hide();
+		  	self.elementsGroups.bolle2.hide();
+		  	self.elementsGroups.bolle3.hide();
+		  	self.elementsGroups.bolle4.hide();
+		  	self.elementsGroups.bolle5.hide();
+		  	self.elementsGroups.bolle6.hide();
+		  	self.elements.pesce1.node.attributes.removeNamedItem('style');
+		  	self.elements.pesce2.node.attributes.removeNamedItem('style');
+		  	showRandomBubbles();
+		  	resolve();
+		  });
 		});
 	}
 
@@ -147,7 +197,8 @@ window.onload = function () {
 			var path_flip = self.elements.sun.select("#" + self.flipped_ray_square_ids[index]).get(0);
 			path.animateSquarePath = path_flip;
 			path.becomeLike = becomeLike;
-			path.becomeLike();
+			//path.becomeLike();
+			path.hide();
 			path.node.addEventListener('mouseover',function(e){
 				e.preventDefault();
 				e.target.style['fill']=getRandomColor();
@@ -164,47 +215,57 @@ window.onload = function () {
 	function becomeLike(_this,thisElement){
 		var i =0;
 		if(this.animateSquarePath != undefined)
-			this.animate(1000, '<>', 0).plot(this.animateSquarePath.array().toString()).loop(true,true);
+			return this.animate(1000, '<>', 0).plot(this.animateSquarePath.array().toString()).loop(true,true);
 	}
 
 	function getRandomColor(){
 		return "#"+((1<<24)*Math.random()|0).toString(16);
 	}
 
-	function moveElementAlongPath(element,path){
+	function moveElementWithPath(element,path , percent){
+		var target = path.target();
+		var length = target.length();
+		return path.during(function(pos, morph, eased){
+			var m = target.matrixify()
+			var p = new SVG.Point(target.pointAt(percent * length)).transform(m)
+			element.move(p.x, p.y);
+		});
+	}
+
+	function moveElementAlongPath(element,path , duration){
 		var length = path.length();
-		var end = path.pointAt(length-1);
-		var i=1;
-		var animatedElement = element.animate(1000, '-').move(end.x,end.y);
-		animatedElement.duringAllRecursive = function(at){
-			this.once(at,function(pos,eased){
-				console.log(pos);
-				var point = path.pointAt(i);
-				animatedElement._target.move(point.x,point.y);
-				i++;
-				animatedElement.duringAllRecursive(Math.max(at+1/length,pos+0.001));
-			},true);
-		}
-		animatedElement.duringAllRecursive(0.01);
+		return element.animate(duration).during(function(pos, morph, eased){
+			var m = path.matrixify()
+			var p = new SVG.Point(path.pointAt(eased * length)).transform(m)
+			element.move(p.x, p.y)
+		});
 	}
 
 	function findNearestElement(point){
 		var distance=1000000;
 		var found =null;
+		var transform = self.elements.pesce1.parent().transform();
 		for(var element of Object.keys(self.elements)){
 			element=self.elements[element];
-			var last_distance=Math.sqrt(Math.pow(point.x-element.cx(),2)+Math.pow(point.y-element.cy(),2));
-			console.log(last_distance + "from " + element.node.id)
-			if(last_distance<distance && last_distance<10){
-				distance = last_distance;
-				found = element;
+			if(element.findable){
+				var last_distance=Math.sqrt(Math.pow(point.x-element.cx()+transform.x,2)+Math.pow(point.y-element.cy()+transform.y,2));
+				//console.log(last_distance + "from " + element.node.id + " " + point.x + " " + point.y + " " + element.cx() + " "+ element.cy());
+				if(last_distance<distance && last_distance<10){
+					distance = last_distance;
+					found = element;
+				}
 			}
+
 		}
 		return found;
 	}
 
 	function randomBetween(min,max){
 		return Math.floor(Math.random()*(max-min+1)+min);
+	}
+
+	function get(element,childName){
+		return element.select("#" + childName).get(0);
 	}
 
 }
