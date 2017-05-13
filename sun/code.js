@@ -127,12 +127,33 @@ window.onload = function () {
 	function animaAlghe(){
 		self.groups.alga1 = get(self.elements.background,"alga1");
 		self.groups.alga2 = get(self.elements.background,"alga2");
-		evolveGroup(self.groups.alga1);
-		evolveGroup(self.groups.alga2);
+		evolveGroup(self.groups.alga1,false);
+		evolveGroup(self.groups.alga2,false);
 	}
 
-	function evolveGroup(element){
-		var frames= idsLike(element.node, /^path[0-9]*\-/).sort();
+	function evolveGroup(element,backwards){
+		var frames=[];
+		element.each(function (i,child){
+			frames.push(this);
+		});
+		var alga = element.animation == undefined ? frames[0].clone() : element.animation;
+		element.animation = alga;
+		for (let frame of frames){
+			frame.hide();
+		}
+		alga.show();
+		var i= backwards ? frames.length-1 : 0;
+		var random_limit = Math.min(frames.length-1,Math.floor(Math.random()*frames.length));
+		while(i>=0 && (!backwards&&i<= random_limit || backwards)){
+			alga = alga.animate().plot(frames[i].array().toString());
+			i = backwards ? i-1 : i+1;
+		}
+		alga.afterAll(function(){
+			setTimeout(function(){
+				evolveGroup(element,!backwards);
+			},0)
+
+		});
 	}
 
 	function drawBackground(){
@@ -142,9 +163,7 @@ window.onload = function () {
 
 		  loadSVG('corallo.svg',function(svg){
 		  	self.elements.background = SVG.get('background');
-		  	self.elements.background.back();
-		  	//self.elements.background.node.attributes.removeNamedItem('width');
-		  	//self.elements.background.node.attributes.removeNamedItem('height');
+		  	//self.elements.background.back();
 		  	self.elements.pesce1=SVG.get('pesce1');
 
 		  	self.elements.pesce1.node.addEventListener("mouseover", function (){
@@ -168,7 +187,7 @@ window.onload = function () {
 		  	self.elementsGroups.bolle6.hide();
 		  	self.elements.pesce1.node.attributes.removeNamedItem('style');
 		  	self.elements.pesce2.node.attributes.removeNamedItem('style');
-		  	showRandomBubbles();
+		  	//showRandomBubbles();
 		  	resolve();
 		  });
 		});
