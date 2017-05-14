@@ -2,35 +2,8 @@ var self = this.sun = {
 	elements : {},
 		groups : {}
 };
-function SVGSymbol(_paper,elems){
-	var svg = paper.project.importSVG(elems[0]);
-	svg.onFrame = function() {
-		svg.rotate(1);
-	}
-}
 
-function idsLike(element,pattern){
-	var nodes= element.querySelectorAll('*'),
-	L= nodes.length, A= [], temp;
-	while(L){
-		var temp= nodes[--L].id || '';
-		if(pattern.test(temp)) 
-			A.push(temp);
-	}
-	return A;
-}
 
-function loadSVG(filename,callback){
-	var client = new XMLHttpRequest();
-	client.open('GET', filename);
-	client.setRequestHeader("Content-Type", "image/svg+xml");
-	client.addEventListener("load", function(event) {
-		var svg = self.draw.svg(client.responseText);
-		if(callback)
-			callback(svg);
-	});
-	client.send();
-}
 
 window.onload = function () {
 	self.draw = SVG('drawing');
@@ -110,25 +83,15 @@ window.onload = function () {
 		}
 	}
 
-	function drawAlghe(){
-		return new Promise(function(resolve, reject) {
-			loadSVG('/assets/alghe.svg',function(){
-				self.elements.alghe = SVG.get('alghe');
-				self.elements.alghe.addTo(self.elements.background);
-				self.elements.alghe.alga1 = get(self.elements.alghe,"alga1");
-				self.elements.alghe.alga1_1 = get(self.elements.alghe,"alga1-1");
-				self.elements.alghe.alga1_1.hide();
-				self.elements.alghe.alga1.animate(1000, '<>', 0).plot(self.elements.alghe.alga1_1.array().toString()).loop(true,true);
-				resolve();
-			});
-		});
-	}
-
 	function animaAlghe(){
 		self.groups.alga1 = get(self.elements.background,"alga1");
 		self.groups.alga2 = get(self.elements.background,"alga2");
 		evolveGroup(self.groups.alga1,false);
 		evolveGroup(self.groups.alga2,false);
+		moveElementAlongPath(self.groups.alga1,
+			get(self.elements.background,"path9217"),
+			1000000,
+			{ x : 300, y : -509.2}).loop();
 	}
 
 	function evolveGroup(element,backwards){
@@ -145,7 +108,7 @@ window.onload = function () {
 		var i= backwards ? frames.length-1 : 0;
 		var random_limit = Math.min(frames.length-1,Math.floor(Math.random()*frames.length));
 		while(i>=0 && (!backwards&&i<= random_limit || backwards)){
-			alga = alga.animate().plot(frames[i].array().toString());
+			alga = alga.animate(3000).plot(frames[i].array().toString());
 			i = backwards ? i-1 : i+1;
 		}
 		alga.afterAll(function(){
@@ -241,24 +204,7 @@ window.onload = function () {
 		return "#"+((1<<24)*Math.random()|0).toString(16);
 	}
 
-	function moveElementWithPath(element,path , percent){
-		var target = path.target();
-		var length = target.length();
-		return path.during(function(pos, morph, eased){
-			var m = target.matrixify()
-			var p = new SVG.Point(target.pointAt(percent * length)).transform(m)
-			element.move(p.x, p.y);
-		});
-	}
 
-	function moveElementAlongPath(element,path , duration){
-		var length = path.length();
-		return element.animate(duration).during(function(pos, morph, eased){
-			var m = path.matrixify()
-			var p = new SVG.Point(path.pointAt(eased * length)).transform(m)
-			element.move(p.x, p.y)
-		});
-	}
 
 	function findNearestElement(point){
 		var distance=1000000;
@@ -279,12 +225,6 @@ window.onload = function () {
 		return found;
 	}
 
-	function randomBetween(min,max){
-		return Math.floor(Math.random()*(max-min+1)+min);
-	}
 
-	function get(element,childName){
-		return element.select("#" + childName).get(0);
-	}
 
 }
