@@ -52,10 +52,10 @@ window.onload = function () {
 	}
 
 	function ruotaPunti(){
-		beLike(self.elements.punti.fucsia.animate(800),SVG.get("fucsia"));
-		beLike(self.elements.punti.gialla.animate(800),SVG.get("giallo"));
-		beLike(self.elements.punti.verde.animate(800),SVG.get("verde"));
-		beLike(self.elements.punti.celeste.animate(800),SVG.get("celeste"))
+		beLike(self.elements.punti.fucsia.animate(800,'>'),SVG.get("fucsia"));
+		beLike(self.elements.punti.gialla.animate(800,'>'),SVG.get("giallo"));
+		beLike(self.elements.punti.verde.animate(800,'>'),SVG.get("verde"));
+		beLike(self.elements.punti.celeste.animate(800,'>'),SVG.get("celeste"))
 			.afterAll(function(){
 				self.elements.punti.gruppo.animate(1000,'>',300).rotate(360).animate(900,'>').rotate(270)
 				.afterAll(function(){
