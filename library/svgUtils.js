@@ -68,3 +68,7 @@
 		});
 		client.send();
 	}
+
+	function beLike(element,path){
+		return element.plot(path.array().toString());
+	}
