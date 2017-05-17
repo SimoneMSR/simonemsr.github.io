@@ -26,42 +26,55 @@ function loadSVG(filename,callback){
 
 window.onload = function () {
 	self.draw = SVG('drawing');
-	loadSVG('/assets/slack.svg',initSVGFile);
+	loadSVG('./assets/slack.svg',initSVGFile);
 	function initSVGFile() {
 		self.elements.linee={};
 		self.elements.punti={};
+		SVG.get("layer1").scale(0.5);
+		var m = new SVG.Matrix(SVG.get("layer1").node.getCTM());
 		SVG.get("linee").hide();
-		SVG.get("giallo-0").hide();
-		self.elements.linee=SVG.get("linee");
+		self.elements.linee.gruppo=SVG.get("linee");
 		self.elements.linee.gialla = SVG.get("linea-gialla");
 		self.elements.linee.verde = SVG.get("linea-verde");
 		self.elements.linee.celeste = SVG.get("linea-celeste");
 		self.elements.linee.fucsia = SVG.get("linea-fucsia");
 		self.elements.punti.gruppo=SVG.get("punti");
-		self.elements.punti.gialla = SVG.get("giallo");
-		self.elements.punti.verde = SVG.get("verde");
-		self.elements.punti.celeste = SVG.get("celeste");
-		self.elements.punti.fucsia = SVG.get("fucsia");
-		self.elements.punti.gruppo.animate(600,'>', 1000).rotate(360).animate(500,'>').rotate(270)
+		self.elements.punti.gialla = SVG.get("giallo").clone();
+		self.elements.punti.verde = SVG.get("verde").clone();
+		self.elements.punti.celeste = SVG.get("celeste").clone();
+		self.elements.punti.fucsia = SVG.get("fucsia").clone();
+		SVG.get("giallo").hide();
+		SVG.get("verde").hide();
+		SVG.get("celeste").hide();
+		SVG.get("fucsia").hide();
+		ruotaPunti();
+
+	}
+
+	function ruotaPunti(){
+		beLike(self.elements.punti.fucsia.animate(800,'>'),SVG.get("fucsia"));
+		beLike(self.elements.punti.gialla.animate(800,'>'),SVG.get("giallo"));
+		beLike(self.elements.punti.verde.animate(800,'>'),SVG.get("verde"));
+		beLike(self.elements.punti.celeste.animate(800,'>'),SVG.get("celeste"))
 			.afterAll(function(){
-				self.elements.punti.gialla.animate(1000,'<>',0).plot(SVG.get("giallo-0").array().toString()).move(0,0);
+				self.elements.punti.gruppo.animate(1000,'>',300).rotate(360).animate(900,'>').rotate(270)
+				.afterAll(function(){
+					estendiPunti(800)
+					.afterAll(function (){
+						setTimeout(ruotaPunti,0);
+					});
+
+				});
 			});
-	}
 
-	function animateRays(){
-		for( index in self.ray_path_ids){
-			var path = self.elements.sun.select("#" + self.ray_path_ids[index]).get(0);
-			path.hide();
-			//var path_flip = SVG.get("#" + flipped_ray_path_ids[index]);
-			//path.animate(1000, '<>', 0).plot(path_flip.array().toString()).loop(true,true);
-		}
 	}
 
 
-	function becomeLike(_this,thisElement){
-		var i =0;
-		if(this.animateSquarePath != undefined)
-			this.animate(1000, '<>', 0).plot(this.animateSquarePath.array().toString()).loop(true,true);
-	}
 
+	function estendiPunti(speed){
+		self.elements.punti.fucsia.animate(speed,'>',0).plot(self.elements.linee.fucsia.array().toString());
+		self.elements.punti.gialla.animate(speed,'>',0).plot(self.elements.linee.gialla.array().toString());
+		self.elements.punti.verde.animate(speed,'>',0).plot(self.elements.linee.verde.array().toString());
+		return self.elements.punti.celeste.animate(speed,'>',0).plot(self.elements.linee.celeste.array().toString());
+	}
 }

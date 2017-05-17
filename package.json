@@ -8,7 +8,8 @@
     "sugar": "^2.0.4",
     "svg.draggable.js": "^2.2.1",
     "svg.js": "^2.5.1",
-    "svg.pathmorphing.js": "^0.1.0"
+    "svg.pathmorphing.js": "^0.1.0",
+    "text-to-svg": "^3.1.0"
   },
   "devDependencies": {},
   "scripts": {
