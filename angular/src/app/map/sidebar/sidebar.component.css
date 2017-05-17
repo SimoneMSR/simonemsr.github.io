@@ -1,0 +1,36 @@
+.sidebar{
+	width: 30%;
+	background-color: rgb(163, 198, 207);
+	position: fixed;
+	left: 100%;
+	top:0px;
+	display: inline-block;
+	height: 100%;
+	transition: left 0.5s;
+	transition-delay: 0.25s;
+}
+
+.sidebar.toggle{
+	left: 70%;
+}
+
+.close-button {
+	position: absolute;
+	top: 50%;
+	left: -24px;
+	cursor: pointer;
+}
+
+.close-button > i {
+	border: black solid;
+	border-radius: 100%;
+	background-color: black;
+	color: white;
+	transition: transform 0.2s;
+	transform : rotate(0deg);
+	font-size: 46px;
+}
+
+.close-button.toggle > i {
+	transform : rotate(180deg);
+}

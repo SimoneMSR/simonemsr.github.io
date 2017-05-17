@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="emptycard"
+   viewBox="0 0 240.94 155.91"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="emptycard.svg">
+  <metadata
+     id="metadata55">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1366"
+     inkscape:window-height="705"
+     id="namedview53"
+     showgrid="false"
+     inkscape:zoom="1.4858471"
+     inkscape:cx="-39.60992"
+     inkscape:cy="76.608969"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="emptycard" />
+  <defs
+     id="defs3">
+    <style
+       id="style5">.cls-1{fill:#706f6f;}.cls-2,.cls-4{fill:#ededed;}.cls-3{font-size:15px;}.cls-3,.cls-7{fill:#fff;font-family:Helvetica-Bold, Helvetica;font-weight:700;}.cls-4{font-size:8px;font-family:Helvetica, Helvetica;}.cls-5{letter-spacing:-0.05em;}.cls-6{fill:#3c3c3b;}.cls-7{font-size:9px;}.cls-8{letter-spacing:-0.02em;}.cls-9{letter-spacing:-0.07em;}</style>
+  </defs>
+  <title
+     id="title7">emptycard</title>
+  <rect
+     class="cls-1"
+     width="240.94"
+     height="155.91"
+     rx="12"
+     ry="12"
+     id="rect9" />
+  <polygon
+     class="cls-2"
+     points="17.28 18.84 21.2 20.9 20.45 16.54 23.62 13.44 19.24 12.81 17.28 8.83 15.32 12.81 10.93 13.44 14.11 16.54 13.36 20.9 17.28 18.84"
+     id="polygon11" />
+  <polygon
+     class="cls-2"
+     points="32.09 18.84 36.01 20.9 35.27 16.54 38.44 13.44 34.05 12.81 32.09 8.83 30.13 12.81 25.75 13.44 28.92 16.54 28.17 20.9 32.09 18.84"
+     id="polygon13" />
+  <polygon
+     class="cls-2"
+     points="46.91 18.84 50.83 20.9 50.08 16.54 53.25 13.44 48.87 12.81 46.91 8.83 44.95 12.81 40.56 13.44 43.74 16.54 42.99 20.9 46.91 18.84"
+     id="polygon15" />
+  <polygon
+     class="cls-2"
+     points="61.72 18.84 65.64 20.9 64.9 16.54 68.07 13.44 63.68 12.81 61.72 8.83 59.76 12.81 55.38 13.44 58.55 16.54 57.8 20.9 61.72 18.84"
+     id="polygon17" />
+  <polygon
+     class="cls-2"
+     points="76.54 18.84 80.46 20.9 79.71 16.54 82.88 13.44 78.5 12.81 76.54 8.83 74.58 12.81 70.19 13.44 73.37 16.54 72.62 20.9 76.54 18.84"
+     id="polygon19" />
+  <rect
+     class="cls-6"
+     y="114.75"
+     width="144.22"
+     height="28.08"
+     id="rect37" />
+  <text
+     class="cls-7"
+     transform="translate(9.83 131.76)"
+     id="text39">CERTIFIED VIS<tspan
+   class="cls-8"
+   x="64.51"
+   y="0"
+   id="tspan41">T</tspan>
+<tspan
+   x="69.85"
+   y="0"
+   id="tspan43">O INS</tspan>
+<tspan
+   class="cls-9"
+   x="94.35"
+   y="0"
+   id="tspan45">T</tspan>
+<tspan
+   x="99.18"
+   y="0"
+   id="tspan47">ALLER</tspan>
+</text>
+  <polygon
+     class="cls-2"
+     points="187.57 149.09 169.73 138.17 152.41 149.09 152.41 107.18 187.57 107.18 187.57 149.09"
+     id="polygon49" />
+  <polygon
+     class="cls-2"
+     points="228.3 149.09 210.45 138.17 193.13 149.09 193.13 107.18 228.3 107.18 228.3 149.09"
+     id="polygon51" />
+</svg>

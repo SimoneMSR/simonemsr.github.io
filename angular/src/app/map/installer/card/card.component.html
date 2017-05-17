@@ -1,0 +1,49 @@
+<img [src]="source">
+<div class="card-container col-xs-12">
+	<div class="row ">
+		<div class="col-xs-4">
+			<p></p>
+			<!-- <div class="row visible-xs visible-sm  stars-container">
+				<span *ngFor="let star of counter(user.stars)" style="color: #f9cd00" class="fa fa-star star"></span>
+				<span *ngFor="let star of counter(5-user.stars)" style="color: #ebebeb" class="fa fa-star star"></span>
+			</div>
+			<div class="row visible-md visible-lg medium-text">
+				<p></p>
+			</div> -->
+			<div class="photo-container">
+				<p></p>
+				<div [ngClass]="{'hidden-important': avatarUrl != null}">
+				<span    class="glyphicon glyphicon-user visible-xs avatar default-avatar default-avatar-xs"></span>
+				<span    class="glyphicon glyphicon-user visible-sm avatar default-avatar default-avatar-sm"></span>
+				<span    class="glyphicon glyphicon-user visible-md avatar default-avatar default-avatar-md"></span>
+				<span    class="glyphicon glyphicon-user visible-lg avatar default-avatar default-avatar-lg"></span>
+				</div>
+				<span *ngIf="avatarUrl != null">
+					<img   class="row avatar photo visible-xs avatar default-avatar default-avatar-xs" [src]="avatarUrl"  >
+					<img   class="row avatar photo visible-sm avatar default-avatar default-avatar-sm" [src]="avatarUrl"  >
+					<img   class="row avatar photo visible-md avatar default-avatar default-avatar-md" [src]="avatarUrl"  >
+					<img   class="row avatar photo visible-lg avatar default-avatar default-avatar-lg" [src]="avatarUrl"  >
+				</span>
+			</div> 
+		</div>
+		<div class="col-xs-7 col-xs-offset-1 text-align-initial">
+			<div class="row ">
+				<h3 class="my-hidden-xs "> {{installer.name}} {{installer.surname}}</h3>
+				<h4 class="my-visible-xs"> {{installer.name}} {{installer.surname}}</h4>
+				<h6 class="my-visible-xxs"> {{installer.name}} {{installer.surname}}</h6>
+			</div>
+			<div class="row small-text">
+				<div >
+					<span *ngIf="installer.city">{{installer.city}},
+					</span>{{installer.country}}
+				</div>
+				<div *ngIf="installer.address">{{installer.address}}</div>
+				<div *ngIf="installer.zipcode">{{installer.zipcode}}</div>
+				<br lass="my-hidden-xs">
+				<div *ngIf="installer.email">{{installer.email}}</div>
+				<br class="my-hidden-xs">
+				<div *ngIf="installer.telephone">{{installer.telephone}}</div>
+			</div>
+		</div>
+	</div>
+</div>

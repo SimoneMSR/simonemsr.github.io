@@ -1,0 +1,12 @@
+<div class="landing-container">
+	<img src="/assets/174249.svg">
+	<div class="address-container">
+		<div class="address-input">
+			<p>Please insert you address</p>
+			<form (ngSubmit)="goToMap()">
+				<input name="address" type="text" [(ngModel)]="address" > 
+				<i class="material-icons" (enter)="goToMap()" (click)="goToMap()">place</i>
+			</form>
+		</div>
+	</div>
+</div>

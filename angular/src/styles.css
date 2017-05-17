@@ -1,0 +1,44 @@
+/* You can add global styles to this file, and also import other style files */
+body{
+	margin : 0px;
+}
+
+@media (max-width: 767px) {
+	.my-hidden-xs{
+		display : none;
+	}
+
+	.my-visible-xs{
+		display : auto !important;
+	}
+}
+
+@media (min-width: 767px) {
+	.my-hidden-xs{
+		display : auto !important;
+	}
+
+	.my-visible-xs{
+		display : none;
+	}
+}
+
+@media (max-width: 336px) {
+	.my-hidden-xxs{
+		display : none;
+	}
+
+	.my-visible-xxs{
+		display : auto !important;
+	}
+}
+
+@media (min-width: 336px) {
+	.my-hidden-xxs{
+		display : auto !important;
+	}
+
+	.my-visible-xxs{
+		display : none;
+	}
+}

@@ -1,0 +1,23 @@
+nav {
+	width: 100%;
+	box-shadow: #9b9b9b 0px 7px 4px;
+	margin-bottom: 50px;
+	background-color: #009a44;
+	color: white;
+	height: 50px;
+}
+
+.navigator {
+	position: fixed;
+	top: 28px;
+	left: 17px;
+}
+
+i {
+	border: #554949;
+	border-radius: 100%;
+	background-color: #554949;
+	color: white;
+	padding: 9px;
+	cursor:pointer;
+}

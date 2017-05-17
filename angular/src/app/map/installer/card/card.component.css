@@ -1,0 +1,71 @@
+.photo-container{
+	text-align: center;
+	margin-top: 68%;
+	margin-left: 26%;
+}
+
+.avatar{
+	border: 2px solid;
+	border-radius: 50%;
+}
+
+.photo{
+	width:100%;
+	padding: 0!important;
+    object-fit: cover;
+}
+
+.default-avatar{
+	padding: 1vmax;
+}
+
+.default-avatar-xs{
+    font-size: 8vmax;
+    width: 14.5vmax;
+    height: 14.5vmax;
+    padding-top: 2.5vmax;
+}
+
+.default-avatar-sm{
+	font-size: 7vmax;
+	width: 12.5vmax;
+	height: 12.5vmax;
+	padding-top: 2.5vmax;
+}
+
+.default-avatar-md{
+	font-size: 4vmax;
+	width: 7.5vmax;
+	height: 7.5vmax;
+	padding-top: 1.5vmax;
+}
+
+.default-avatar-lg{
+    font-size: 4.5vmax;
+    width: 7.5vmax;
+    height: 7.5vmax;
+    padding-top: 1.5vmax;
+}
+
+
+.card-container{
+	top: 0px;
+	position: absolute;
+	word-wrap: break-word;
+}
+
+
+
+.stars-container{
+	text-align: initial;
+	margin-left: 1px;
+}
+
+.row.same-heigth{
+	overflow: hidden; 
+}
+
+.row.same-heigth [class*="col-"]{
+	margin-bottom: -99999px;
+	padding-bottom: 99999px;
+}

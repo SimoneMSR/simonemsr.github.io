@@ -1,0 +1,18 @@
+.sebm-google-map-container {
+  height: 300px;
+}
+
+.container{
+	width: 100%;
+	display:inline-block;
+	transition: width 0.5s;
+	transition-delay: 0.25s;
+}
+
+.container.toggle{
+	width: 70%;
+}
+
+.table-container {
+	margin-top: 20px;
+}

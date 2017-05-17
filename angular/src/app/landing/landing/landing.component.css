@@ -1,0 +1,64 @@
+.landing-container{
+	height: 100%;
+}
+
+.address-container{
+	position: fixed;
+	top: 50%;
+	width: 100%;
+	padding-right: 6%;
+}
+
+.address-input  {
+	float: right;
+}
+
+
+
+i.material-icons{
+	color: #dd3f3f;
+	animation-name: oscillate;
+	animation-duration: 2s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+	cursor: pointer;
+}
+
+i.material-icons:hover, input:focus + i.material-icons{
+	animation : none;
+}
+
+input:hover{
+	animation : none;
+}
+
+img {
+	left: -18%;
+	position: fixed;
+	width: 64%;
+	height: 64%;
+	bottom: -19%;
+}
+
+@media (min-width: 650px) {
+	img {
+		width: 75%;
+		height: 75%;
+		left: -30%;
+	}
+}
+
+@keyframes oscillate {
+	0% {
+		transform: translateY(-5px);
+	}
+
+	90% {
+		transform: translateY(-10px);
+	}
+
+	100% {
+		transform: translateY(-10px);
+	}
+}

@@ -1,0 +1,8 @@
+<div #sidebar class="sidebar" [ngClass]="{'toggle': toggle}">
+	<div *ngIf="installer" class="card-container">
+		<app-card [installer]="installer"></app-card>
+	</div>
+	<div class="close-button" [ngClass]="{'toggle': toggle}" (click)="fireToggle()">
+		<i   class="material-icons">keyboard_arrow_left</i>
+	</div>
+</div>
