@@ -52,6 +52,11 @@ window.onload = function () {
 		self.elements.punti.verde = SVG.get("verde").clone();
 		self.elements.punti.celeste = SVG.get("celeste").clone();
 		self.elements.punti.fucsia = SVG.get("fucsia").clone();
+		self.elements.punti.centro = {};
+		self.elements.punti.centro.gialla = SVG.get("giallo-1").hide();
+		self.elements.punti.centro.verde = SVG.get("verde-1").hide();
+		self.elements.punti.centro.fucsia = SVG.get("fucsia-1").hide();
+		self.elements.punti.centro.celeste = SVG.get("celeste-1").hide();
 		
 	}
 
@@ -78,31 +83,52 @@ window.onload = function () {
 	}
 
 	function ruotaPunti(){
-		beLike(self.elements.punti.fucsia.animate(800,'>'),SVG.get("fucsia"));
-		beLike(self.elements.punti.gialla.animate(800,'>'),SVG.get("giallo"));
-		beLike(self.elements.punti.verde.animate(800,'>'),SVG.get("verde"));
-		beLike(self.elements.punti.celeste.animate(800,'>'),SVG.get("celeste"))
+		beLike(self.elements.punti.fucsia.animate(300,'>'),SVG.get("fucsia"));
+		beLike(self.elements.punti.gialla.animate(300,'>'),SVG.get("giallo"));
+		beLike(self.elements.punti.verde.animate(300,'>'),SVG.get("verde"));
+		beLike(self.elements.punti.celeste.animate(300,'>'),SVG.get("celeste"))
 		.afterAll(function(){
-			self.elements.punti.gruppo.animate(1000,'>',200).rotate(360)
+			self.elements.punti.gruppo.animate(1000,'>').rotate(360)
 			.once(0.3,function(){
 				
-				appiattisciPunti(17.5);
+				//appiattisciPunti(17.5);
 			})
 			.after(function(){
-								appiattisciPunti(-17.5);
+				//appiattisciPunti(-17.5);
 			})
 			.animate(900,'>').rotate(270)
-			.afterAll(function(){
-
-				estendiPunti(800)
-				.afterAll(function (){
-					setTimeout(ruotaPunti,0);
-				});
-
+			.once(0.3, function(){
+				goToCenter();
 			})
+			.afterAll(function(){
+				goToPerifery()
+				.after(function(){
+
+					estendiPunti(800)
+					.after(function (){
+						setTimeout(ruotaPunti,0);
+					});
+
+				})
+			})
+
 
 		});
 
+	}
+
+	function goToCenter(){
+		beLike(self.elements.punti.fucsia.animate(800,'>'),self.elements.punti.centro.fucsia);
+		beLike(self.elements.punti.verde.animate(800,'>'),self.elements.punti.centro.verde);
+		beLike(self.elements.punti.gialla.animate(800,'>'),self.elements.punti.centro.gialla);
+		beLike(self.elements.punti.celeste.animate(800,'>'),self.elements.punti.centro.celeste);
+	}
+
+	function goToPerifery(){
+		beLike(self.elements.punti.fucsia.animate(800,'>'),SVG.get("fucsia"));
+		beLike(self.elements.punti.gialla.animate(800,'>'),SVG.get("giallo"));
+		beLike(self.elements.punti.celeste.animate(800,'>'),SVG.get("celeste"));
+		return beLike(self.elements.punti.verde.animate(800,'>'),SVG.get("verde"));
 	}
 
 
