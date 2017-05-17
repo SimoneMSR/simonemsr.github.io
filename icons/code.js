@@ -96,14 +96,13 @@ window.onload = function () {
 			.after(function(){
 				//appiattisciPunti(-17.5);
 			})
-			.animate(900,'>').rotate(270)
+			.animate(600,'>').rotate(270)
 			.once(0.3, function(){
 				goToCenter();
 			})
 			.afterAll(function(){
 				goToPerifery()
 				.after(function(){
-
 					estendiPunti(800)
 					.after(function (){
 						setTimeout(ruotaPunti,0);
