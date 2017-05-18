@@ -26,8 +26,11 @@ function loadSVG(filename,callback){
 
 window.onload = function () {
 	self.draw = SVG('drawing');
-	loadSVG('./assets/slack.svg',initSVGFile);
-	function initSVGFile() {
+	//drawEasingTests();
+	loadSVG('./assets/stripes.svg');
+	loadSVG('./assets/slack.svg',drawSlack);
+
+	function drawSlack() {
 		self.elements.linee={};
 		self.elements.punti={};
 		SVG.get("layer1").scale(0.5);
@@ -58,6 +61,40 @@ window.onload = function () {
 		self.elements.punti.centro.fucsia = SVG.get("fucsia-1").hide();
 		self.elements.punti.centro.celeste = SVG.get("celeste-1").hide();
 		
+	}
+
+	function drawEasingTests(){
+		SVG.easing['elastic2'] = function(pos) {
+			if(pos == !!pos)
+				console.log(pos );
+
+			if (pos == !!pos) return pos
+				return Math.pow(2, -5 * pos) * Math.sin((pos - 0.075) * (2 * Math.PI) / .3) + 1
+		}
+		SVG.easing['elastic2'] = function(pos) {
+			var frequency = 0.3;
+			var frequencyOut=0.1;
+			if(pos == !!pos)
+				console.log(pos );
+
+			if (pos == !!pos) return pos;
+			if(pos<0.75)
+				return Math.pow(1.7, -5 * pos) * Math.sin((pos - 0.075) * (2 * Math.PI) / frequency) + 1;
+			return Math.pow(1.7, -5 * pos) * Math.sin((pos - 0.075) * (2 * Math.PI) / frequencyOut) + 1;
+		}
+		var easingFunctions = ['bounce', 'sinInOut', 'quadIn','quadOut','quadInOut','cubicIn','cubicOut','cubicInOut','quartIn','quartOut','quartInOut','quintIn','quintOut','quintInOut','sineIn','sineOut','sineInOut','expoIn','expoOut','expoInOut','circIn','circOut','circInOut','backIn','backOut','backInOut','swingFromTo','swingFrom','swingTo','bounce','bounceOut','elastic']
+		easingFunctions = ['swingTo','bounce','bounceOut','elastic','elastic2','bounceOut2'];
+		var size = 40;
+		var i=0;
+		self.elements.easing = self.draw.group();
+		for(;i<easingFunctions.length;i++){
+			var elem = self.elements.easing.rect(size,size).fill('pink').move(10*size,i*size+5);
+			elem.monty_index = i;
+			elem.click(function (){
+				this.animate(1000,easingFunctions[this.monty_index]).move(20*size,this.monty_index*size+5)
+				.delay(500).animate(1).move(10*size,this.monty_index*size+5);
+			});
+		}
 	}
 
 	function initializeElements2(){

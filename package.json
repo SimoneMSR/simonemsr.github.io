@@ -4,16 +4,19 @@
   "description": "monty",
   "main": "index.js",
   "dependencies": {
+    "browserify": "^14.3.0",
     "paper": "0.10.2",
     "sugar": "^2.0.4",
     "svg.draggable.js": "^2.2.1",
+    "svg.easing.js": "^2.0.0",
     "svg.js": "^2.5.1",
     "svg.pathmorphing.js": "^0.1.0",
     "text-to-svg": "^3.1.0"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "bundle": "browserify main.js -o ./library/bundle.js"
   },
   "repository": {
     "type": "git",
