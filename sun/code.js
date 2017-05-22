@@ -150,7 +150,7 @@ window.onload = function () {
 		  	self.elementsGroups.bolle6.hide();
 		  	self.elements.pesce1.node.attributes.removeNamedItem('style');
 		  	self.elements.pesce2.node.attributes.removeNamedItem('style');
-		  	//showRandomBubbles();
+		  	showRandomBubbles();
 		  	resolve();
 		  });
 		});
