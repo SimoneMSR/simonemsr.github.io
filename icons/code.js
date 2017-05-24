@@ -27,8 +27,9 @@ function loadSVG(filename,callback){
 window.onload = function () {
 	self.draw = SVG('drawing');
 	//drawEasingTests();
-	loadSVG('./assets/stripes.svg');
+	loadSVG('./assets/stripes.svg',animateStripes);
 	loadSVG('./assets/slack.svg',drawSlack);
+	//drawStripes();
 
 	function drawSlack() {
 		self.elements.linee={};
@@ -36,12 +37,51 @@ window.onload = function () {
 		SVG.get("layer1").scale(0.5);
 		SVG.get("linee").hide();
 		initializeElements();
-		SVG.get("giallo").hide();
-		SVG.get("verde").hide();
-		SVG.get("celeste").hide();
-		SVG.get("fucsia").hide();
 		ruotaPunti();
 
+	}
+
+	function animateStripes(){
+		SVG.get("stripes").move(0,0);
+		self.elements.stripes ={};
+		self.elements.stripes.menu = SVG.get("menu").hide();
+		self.elements.stripes.long = SVG.get("lunghi").hide();
+		self.elements.stripes.short = SVG.get("corti");
+		self.elements.stripes.short_original = SVG.get("corti").clone().hide();
+		for(var child of self.elements.stripes.short.children()){
+			var delay = randomBetween(1000,2000);
+			var duration = randomBetween(3000,5000);
+			beLike(child.delay(delay).animate(duration,'swingTo'),select(self.elements.stripes.long,"." + child.node.classList[0])).loop(true,true);
+		}
+		var stripes_colours = ['azzurro','celeste','fango','verde','cammello'];
+		for(let stripe of stripes_colours){
+			self.elements.stripes.menu[stripe] = get(self.elements.stripes.menu,stripe);
+			self.elements.stripes.short[stripe] = select(self.elements.stripes.short,"."+stripe);
+			self.elements.stripes.short[stripe].mouseover(function(){
+				self.elements.stripes.short[stripe].finish();
+				self.elements.stripes.short[stripe].front();
+				beLike(self.elements.stripes.short[stripe].animate(),self.elements.stripes.menu[stripe]);
+			});
+			self.elements.stripes.short[stripe].mouseout(function(){
+				self.elements.stripes.short[stripe].finish();
+				beLike(self.elements.stripes.short[stripe].animate(200),select(self.elements.stripes.short_original,"."+stripe))
+				.after(function(){
+					beLike(self.elements.stripes.short[stripe].animate(randomBetween(3000,5000),'swingTo'),select(self.elements.stripes.long,"." + stripe)).loop(true,true);
+				});
+			});
+		}
+
+	}
+
+	function drawStripes(){
+		self.elements.stripes = self.draw.group();
+		addLineFunction(self.elements.stripes);
+		var length = 10;
+		self.elements.stripes.lineSize(1,0,length,0,1).stroke({ width: 2, color : '#92a168' });
+		self.elements.stripes.lineSize(1,2,length,2,1).stroke({ width: 3, color : '#959349' });
+		self.elements.stripes.lineSize(1,3,length,3,1).stroke({ width: 5, color : '#499559' });
+		self.elements.stripes.lineSize(1,5,length,5,1).stroke({ width: 4.5 , color : '#498595'});
+		self.elements.stripes.lineSize(1,4.5,length,4.5,1).stroke({ width: 7 , color : '#68a198'});
 	}
 
 	function initializeElements(){
@@ -52,14 +92,18 @@ window.onload = function () {
 		self.elements.linee.fucsia = SVG.get("linea-fucsia");
 		self.elements.punti.gruppo = SVG.get("punti");
 		self.elements.punti.gialla = SVG.get("giallo").clone();
-		self.elements.punti.verde = SVG.get("verde").clone();
-		self.elements.punti.celeste = SVG.get("celeste").clone();
+		self.elements.punti.verde = get(self.elements.punti.gruppo,"verde").clone();
+		self.elements.punti.celeste = get(self.elements.punti.gruppo,"celeste").clone();
 		self.elements.punti.fucsia = SVG.get("fucsia").clone();
 		self.elements.punti.centro = {};
 		self.elements.punti.centro.gialla = SVG.get("giallo-1").hide();
 		self.elements.punti.centro.verde = SVG.get("verde-1").hide();
 		self.elements.punti.centro.fucsia = SVG.get("fucsia-1").hide();
 		self.elements.punti.centro.celeste = SVG.get("celeste-1").hide();
+		SVG.get("giallo").hide();
+		get(self.elements.punti.gruppo,"verde").hide();
+		get(self.elements.punti.gruppo,"celeste").hide();
+		SVG.get("fucsia").hide();
 		
 	}
 
@@ -97,13 +141,17 @@ window.onload = function () {
 		}
 	}
 
+	function addLineFunction(object){
+		object.lineSize = function(x1,y1,x2,y2,size){
+			return this.line(x1*size, y1*size,x2*size,y2*size);
+		}	
+	}
+
 	function initializeElements2(){
 		var size=100;
 		var width=20 ;
 		self.elements.linee.gruppo = self.draw.group();
-		self.elements.linee.gruppo.lineSize = function(x1,y1,x2,y2,size){
-			return this.line(x1*size, y1*size,x2*size,y2*size);
-		}
+		addLineFunction(self.elements.linee.gruppo);
 		self.elements.linee.gialla = self.elements.linee.gruppo.lineSize(1, 0, 1,3,size).stroke({ width: width }).toPath(true);
 		self.elements.linee.verde = self.elements.linee.gruppo.lineSize(2, 0, 2,3,size).stroke({ width: width }).toPath(true);
 		self.elements.linee.fucsia = self.elements.linee.gruppo.lineSize(0, 2, 3,2,size).stroke({ width: width }).toPath(true);
@@ -122,8 +170,8 @@ window.onload = function () {
 	function ruotaPunti(){
 		beLike(self.elements.punti.fucsia.animate(300,'>'),SVG.get("fucsia"));
 		beLike(self.elements.punti.gialla.animate(300,'>'),SVG.get("giallo"));
-		beLike(self.elements.punti.verde.animate(300,'>'),SVG.get("verde"));
-		beLike(self.elements.punti.celeste.animate(300,'>'),SVG.get("celeste"))
+		beLike(self.elements.punti.verde.animate(300,'>'),get(self.elements.punti.gruppo,"verde"));
+		beLike(self.elements.punti.celeste.animate(300,'>'),get(self.elements.punti.gruppo,"celeste"))
 		.afterAll(function(){
 			self.elements.punti.gruppo.animate(1000,'>').rotate(360)
 			.once(0.3,function(){
@@ -163,8 +211,8 @@ window.onload = function () {
 	function goToPerifery(){
 		beLike(self.elements.punti.fucsia.animate(800,'>'),SVG.get("fucsia"));
 		beLike(self.elements.punti.gialla.animate(800,'>'),SVG.get("giallo"));
-		beLike(self.elements.punti.celeste.animate(800,'>'),SVG.get("celeste"));
-		return beLike(self.elements.punti.verde.animate(800,'>'),SVG.get("verde"));
+		beLike(self.elements.punti.celeste.animate(800,'>'),get(self.elements.punti.gruppo,"celeste"));
+		return beLike(self.elements.punti.verde.animate(800,'>'),get(self.elements.punti.gruppo,"verde"));
 	}
 
 

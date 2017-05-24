@@ -6,6 +6,10 @@
 		return element.select("#" + childName).get(0);
 	}
 
+	function select(element,query){
+		return element.select(query).get(0);
+	}
+
 	function moveElementWithPath(element,path , percent){
 		var target = path.length ? path : path.target();
 		var length = target.length();
