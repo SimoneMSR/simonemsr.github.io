@@ -2,7 +2,8 @@ window.onload = init;
 self = window.advertise = {
 	elements : {},
 	groups : {
-		linee : {}
+		linee : {},
+		cerchi : {}
 	}
 };
 
@@ -58,18 +59,26 @@ function closeAll(){
 function openSingle(element){
 	var originPoint = {x :self.groups.ellissi[element.id()].x(), y : self.groups.ellissi[element.id()].y()};
 	self.groups.linee[element.id()] = self.draw.line(originPoint.x, originPoint.y, element.finalPosition.x, element.finalPosition.y)
-	.stroke({ color: '#f06', width: 10, linecap: 'round' }).addTo(self.svg);
-	//self.draw.circle(10).move(originPoint.x,originPoint.y).stroke({ color: '#f06', width: 10, linecap: 'round' })
+	.stroke({ color: '#f90000', width: 7, linecap: 'round' }).addTo(self.svg)
+	.after(element);
+	
 	return element
 	.delay(100)
 	.animate(20)
 	.attr({'opacity' :1 })
 	.animate(200)
-	.move(-element.originalPosition.x+element.cx(), -element.originalPosition.y+element.cy());
+	.move(-element.originalPosition.x+element.cx(), -element.originalPosition.y+element.cy())
+	.after(function(){
+		self.groups.cerchi[element.id()] = self.draw.circle(120)
+		.addTo(self.svg)
+		.after(element);
+		self.groups.cerchi[element.id()].center(element.finalPosition.x - self.groups.cerchi[element.id()].x(), element.finalPosition.y -self.groups.cerchi[element.id()].y()).fill( 'white' );
+	});
 }
 
 function closeSingle(element){
 	self.groups.linee[element.id()].remove();
+	self.groups.cerchi[element.id()].remove();
 	return element
 	.animate(200)
 	.move(element.originalPosition.x - element.cx(),element.originalPosition.y - element.cy())
