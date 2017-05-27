@@ -9,7 +9,7 @@ self = window.advertise = {
 
 function init(){
 	self.draw= SVG('drawing');
-	loadSVG("./assets/pack.svg", drawPack);
+	SvgUtils.loadSVG("./assets/pack.svg", drawPack);
 }
 
 function drawPack(){

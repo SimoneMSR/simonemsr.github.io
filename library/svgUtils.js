@@ -27,15 +27,15 @@
 		var target = path.length ? path : path.target();
 		var length = target.length();
 		return element.animate(duration).
-			during(function(pos, morph, eased){
+		during(function(pos, morph, eased){
 			path.during(function(pos, morph, eased){
-			if(!element.stopMoveElementWithPath){
-				var m = target.matrixify()
-				var p = new SVG.Point(target.pointAt(percent * length)).transform(m)
-				element.move(p.x, p.y);
-			}
+				if(!element.stopMoveElementWithPath){
+					var m = target.matrixify()
+					var p = new SVG.Point(target.pointAt(percent * length)).transform(m)
+					element.move(p.x, p.y);
+				}
 
-		});
+			});
 		});
 
 	}
@@ -106,3 +106,23 @@
 		else
 			return element.matrixify(); 
 	}
+
+	function SvgUtils(){
+
+	}
+
+	var SvgUtils = window.SvgUtils = {
+		getAbsoluteMatrix :getAbsoluteMatrix,
+		randomBetween :randomBetween,
+		get :get,
+		select :select,
+		moveElementWithPath :moveElementWithPath,
+		moveElementWithPath2 :moveElementWithPath2,
+		moveElementAlongPath : moveElementAlongPath,
+		moveElementRandomlyAlongPath :moveElementRandomlyAlongPath ,
+		idsLike : idsLike,
+		loadSVG : loadSVG,
+		beLike : beLike
+	}
+
+
