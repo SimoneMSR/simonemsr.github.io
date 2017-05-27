@@ -99,3 +99,10 @@
 	function beLike(element,path){
 		return element.plot(path.array().toString());
 	}
+
+	function getAbsoluteMatrix(element){
+		if(element.parent().node != undefined)
+			return element.matrixify().multiply(getAbsoluteMatrix(element.parent()));
+		else
+			return element.matrixify(); 
+	}

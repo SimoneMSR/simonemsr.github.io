@@ -1,6 +1,9 @@
 window.onload = init;
 self = window.advertise = {
-	elements : {}
+	elements : {},
+	groups : {
+		linee : {}
+	}
 };
 
 function init(){
@@ -9,21 +12,19 @@ function init(){
 }
 
 function drawPack(){
-	self.svg = SVG.get("svg2").size('50%','50%').dmove('25%','25%');
-	self.elements.documenti = SVG.get("documenti").hide();
-	self.elements.piccolo_pack = SVG.get("piccolo-pack").hide();
-	self.elements.portachiavi  = SVG.get("portachiavi").hide();
-	self.groups = {};
+	var nomi_elementi= ['portachiavi', 'pack', 'documenti', 'beauty' , 'bagno', 'respiratore' ,'scarpe'];
+	nomi_elementi= ['portachiavi', 'pack', 'documenti'];
+	self.svg = SVG.get("svg2").size('50%','50%').move('25%','25%');
 	self.groups.ellissi = {};
-	self.groups.ellissi.piccolo_pack = SVG.get("ellipse-piccolo-pack");
-	self.elements.piccolo_pack.originalPosition={x:-80, y:170};
-	self.elements.documenti.originalPosition={x:-250, y:170};
-	self.elements.portachiavi.originalPosition={x:70, y:30};
+	for(let el of nomi_elementi){
+		self.elements[el] = SVG.get(el).attr({'opacity' :0 });
+		self.groups.ellissi[el] = SVG.get("ellisse-" + el);
+		self.elements[el].originalPosition = {x:self.groups.ellissi[el].cx(), y : self.groups.ellissi[el].cy()};
+	}
 	for(let el of Object.keys(self.elements)){
 		el = self.elements[el];
-		el.finalPosition = {x:el.x(), y:el.y()};
-		el.attr({'transform' : ''});
-		el.move(el.originalPosition.x,el.originalPosition.y);
+		el.finalPosition = {x:el.cx(), y:el.cy()};
+		el.move(-el.cx() + el.originalPosition.x,-el.cy()+el.originalPosition.y);
 	}
 	openAll();
 }
@@ -33,7 +34,7 @@ function openAll(){
 	.afterAll(function(){
 		openSingle(self.elements.documenti)
 		.afterAll(function(){
-			openSingle(self.elements.piccolo_pack)
+			openSingle(self.elements.pack)
 			.afterAll(function(){
 				setTimeout(closeAll,1000)
 			});
@@ -42,7 +43,7 @@ function openAll(){
 }
 
 function closeAll(){
-	closeSingle(self.elements.piccolo_pack)
+	closeSingle(self.elements.pack)
 	.afterAll(function(){
 		closeSingle(self.elements.documenti)
 		.afterAll(function(){
@@ -55,14 +56,24 @@ function closeAll(){
 }
 
 function openSingle(element){
+	var originPoint = {x :self.groups.ellissi[element.id()].x(), y : self.groups.ellissi[element.id()].y()};
+	self.groups.linee[element.id()] = self.draw.line(originPoint.x, originPoint.y, element.finalPosition.x, element.finalPosition.y)
+	.stroke({ color: '#f06', width: 10, linecap: 'round' }).addTo(self.svg);
+	//self.draw.circle(10).move(originPoint.x,originPoint.y).stroke({ color: '#f06', width: 10, linecap: 'round' })
 	return element
-	.show().animate(200)
-	.move(element.finalPosition.x, element.finalPosition.y);
+	.delay(100)
+	.animate(20)
+	.attr({'opacity' :1 })
+	.animate(200)
+	.move(-element.originalPosition.x+element.cx(), -element.originalPosition.y+element.cy());
 }
 
 function closeSingle(element){
+	self.groups.linee[element.id()].remove();
 	return element
 	.animate(200)
-	.move(element.originalPosition.x,element.originalPosition.y)
-	.afterAll(element.hide)
+	.move(element.originalPosition.x - element.cx(),element.originalPosition.y - element.cy())
+	.afterAll(function(){
+		this.attr({'opacity' :0 });
+	})
 }
