@@ -38,7 +38,12 @@ window.onload = function () {
 		SVG.get("linee").hide();
 		initializeElements();
 		ruotaPunti();
+		esporta();
 
+	}
+
+	function esporta(){
+		console.log(self.draw.svg());
 	}
 
 	function animateStripes(){
