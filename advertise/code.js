@@ -9,20 +9,60 @@ function init(){
 }
 
 function drawPack(){
-	self.elements.svg = SVG.get("svg2").size('50%','50%').dmove('25%','25%');
+	self.svg = SVG.get("svg2").size('50%','50%').dmove('25%','25%');
 	self.elements.documenti = SVG.get("documenti").hide();
 	self.elements.piccolo_pack = SVG.get("piccolo-pack").hide();
 	self.elements.portachiavi  = SVG.get("portachiavi").hide();
-	self.elements.ellissi = {};
-	self.elements.ellissi.piccolo_pack = SVG.get("ellipse-piccolo-pack");
-	self.elements.piccolo_pack.originalPosition=[self.elements.piccolo_pack.x(),self.elements.piccolo_pack.y()];
-	var m = SVG.get("layer1").matrixify().inverse().extract();
-	self.elements.piccolo_pack.move(-20,120);
-	animatePack();
+	self.groups = {};
+	self.groups.ellissi = {};
+	self.groups.ellissi.piccolo_pack = SVG.get("ellipse-piccolo-pack");
+	self.elements.piccolo_pack.originalPosition={x:-80, y:170};
+	self.elements.documenti.originalPosition={x:-250, y:170};
+	self.elements.portachiavi.originalPosition={x:70, y:30};
+	for(let el of Object.keys(self.elements)){
+		el = self.elements[el];
+		el.finalPosition = {x:el.x(), y:el.y()};
+		el.attr({'transform' : ''});
+		el.move(el.originalPosition.x,el.originalPosition.y);
+	}
+	openAll();
 }
 
-function animatePack(){
-	self.elements.piccolo_pack
-	.show().animate()
-	.move(self.elements.piccolo_pack.originalPosition[0], self.elements.piccolo_pack.originalPosition[1]);
+function openAll(){
+	openSingle(self.elements.portachiavi)
+	.afterAll(function(){
+		openSingle(self.elements.documenti)
+		.afterAll(function(){
+			openSingle(self.elements.piccolo_pack)
+			.afterAll(function(){
+				setTimeout(closeAll,1000)
+			});
+		})
+	})
+}
+
+function closeAll(){
+	closeSingle(self.elements.piccolo_pack)
+	.afterAll(function(){
+		closeSingle(self.elements.documenti)
+		.afterAll(function(){
+			closeSingle(self.elements.portachiavi)
+			.afterAll(function(){
+				setTimeout(openAll,2000)
+			});
+		})
+	})
+}
+
+function openSingle(element){
+	return element
+	.show().animate(200)
+	.move(element.finalPosition.x, element.finalPosition.y);
+}
+
+function closeSingle(element){
+	return element
+	.animate(200)
+	.move(element.originalPosition.x,element.originalPosition.y)
+	.afterAll(element.hide)
 }
