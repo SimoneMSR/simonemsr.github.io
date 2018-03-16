@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Data Layer: Simple</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+
+      function getData(path, callback) {
+    return new Promise(function(resolve, reject) {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4) {
+                // The request is done; did it work?
+                if (xhr.status == 200) {
+                    // Yes, use `xhr.responseText` to resolve the promise
+                    resolve(xhr.responseText);
+                } else {
+                    // No, reject the promise
+                    reject(xhr);
+                }
+             }
+        };
+        xhr.open("GET", path);
+        xhr.send();
+    });
+}
+
+
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: {lat: -28, lng: 137}
+        });
+
+        //getData("assets/layer.json").then((data) => {
+        //  map.data.add(new google.maps.Data.Polygon(data.features[0]));
+       // });
+
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCHWowF8vAtT0LFcai1u8MPOIl7XlVz3k&callback=initMap">
+    </script>
+  </body>
+</html>
