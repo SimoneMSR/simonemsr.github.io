@@ -11,7 +11,7 @@ function random(a,b){
 
 function words(){
 	var message = "i-like-moving-things";
-	var body = document.getElementsByTagName("div")[0];
+	var body = document.getElementsByClassName("letters-container")[0];
 	for(letter of message){
 		switch (letter) {
 			case '-' : {
