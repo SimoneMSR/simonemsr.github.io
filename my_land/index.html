@@ -47,12 +47,37 @@
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
           zoom: 4,
-          center: {lat: -28, lng: 137}
+          center: {"lng":123.61, "lat":-22.14}
         });
 
-        //getData("assets/layer.json").then((data) => {
-        //  map.data.add(new google.maps.Data.Polygon(data.features[0]));
-       // });
+
+        getData("assets/layer.json").then((data) => {
+          data = JSON.parse(data);
+          var path = new google.maps.Polygon({paths : data.features[0].geometry.coordinates[0],
+                    strokeColor: '#FF0000',
+          strokeOpacity: 0.8,
+          strokeWeight: 3,
+          fillColor: '#FF0000',
+          fillOpacity: 0.35});
+
+          path.setMap(map);
+
+          var path2 = new google.maps.Polygon({paths : data.features[1].geometry.coordinates[0],
+                    strokeColor: '#FF0000',
+          strokeOpacity: 0.8,
+          strokeWeight: 3,
+          fillColor: '#FF0000',
+          fillOpacity: 0.35});
+          path2.setMap(map);
+
+          var path3 = new google.maps.Polygon({paths : data.features[2].geometry.coordinates[0],
+                    strokeColor: '#FF0000',
+          strokeOpacity: 0.8,
+          strokeWeight: 3,
+          fillColor: '#FF0000',
+          fillOpacity: 0.35});
+          path.setMap(map);
+        });
 
       }
     </script>
