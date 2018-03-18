@@ -10,14 +10,23 @@
         infoWindow = new google.maps.InfoWindow;
 
         showLayers(map);
+        addLayer();
         //showCurrentPosition();
         moveToCurrentPosition();
         showTracker();
+      }
 
-        // Try HTML5 geolocation.
+      function addLayer(){
+        var particelle = new WmsMapType(
+        "Particelle Catastali",
+        "https://wms.cartografia.agenziaentrate.gov.it/inspire/wms/ows01.php",
+        {layers: "CP.CadastralParcel",
+      SR : "EPSG:6706"},
+        {opacity: 0.5});
 
 
-
+        particelle.addToMap(map);
+        //map.overlayMapTypes.getArray()[0].setOpacity(0.5);
       }
 
       function moveToCurrentPosition(){
