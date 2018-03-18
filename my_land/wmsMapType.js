@@ -107,9 +107,8 @@ function WmsMapType(name, url, params, options) {
 			var date = new Date();
 			url += "&cache=" + date.getTime();
 		}
-		
 		var div = ownerDocument.createElement('div');
-		div.innerHTML = '<img style="opacity: ' + this.options['opacity'] +';" src="' + url + '"/>';
+		div.innerHTML = '<img style=" filter: invert(1); opacity: ' + this.options['opacity'] +';" src="' + url + '"/>';
 		div.style.width = this.tileSize.width + 'px';
 		div.style.height = this.tileSize.height + 'px';
 		div.style.opacity = this.options['opacity']+"!important";
