@@ -4,21 +4,21 @@ title: SMSR | portfolio
 ---
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css"/>
 
 <link rel="stylesheet" type="text/css" href="./styles.css"/>
 
 <script type="text/javascript">
 	$(document).ready(function(){
 			$('.portfolio-items').slick({
-				slidesToShow: 3,
+				slidesToShow: 4,
 				slidesToScroll: 1,
 				autoplay: true,
 				autoplaySpeed: 5*1000,
 				arrows: false,
 				dots: false,
-					pauseOnHover: false,
-					responsive: [{
+				mobileFirst:true,
+				pauseOnHover: false,
+				responsive: [{
 					breakpoint: 768,
 					settings: {
 						slidesToShow: 3
@@ -33,7 +33,6 @@ title: SMSR | portfolio
 		});
 </script>
 <div >
-	<h1>My portfolio</h1>
 	<div class="portfolio-items">
 	 <div class="slide"><a href="https://www.artinthepen.org.uk/" alt="#WixCode" target="blank"> <img src="../portfolio/artinthepen.jpg"/></a></div>
 	 <div class="slide"><img src="../portfolio/visto.jpg"/></div>
