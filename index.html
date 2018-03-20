@@ -2,6 +2,43 @@
 layout: default
 title: SMSR | portfolio
 ---
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css"/>
+
+<link rel="stylesheet" type="text/css" href="./styles.css"/>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+			$('.portfolio-items').slick({
+				slidesToShow: 3,
+				slidesToScroll: 1,
+				autoplay: true,
+				autoplaySpeed: 5*1000,
+				arrows: false,
+				dots: false,
+					pauseOnHover: false,
+					responsive: [{
+					breakpoint: 768,
+					settings: {
+						slidesToShow: 3
+					}
+				}, {
+					breakpoint: 520,
+					settings: {
+						slidesToShow: 2
+					}
+				}]
+			});
+		});
+</script>
 <div >
 	<h1>My portfolio</h1>
+	<div class="portfolio-items">
+	 <div class="slide"><a href="https://www.artinthepen.org.uk/" alt="#WixCode" target="blank"> <img src="../portfolio/artinthepen.jpg"/></a></div>
+	 <div class="slide"><img src="../portfolio/visto.jpg"/></div>
+	 <div class="slide"><a class="svg" href="http://fad.confservizitp.it" alt="#Wordpress_plugin" target="blank"><span><object data='../portfolio/fad.svg' type="image/svg+xml"></object></span></a></div>
+	 <div class="slide"><a href="http://www.damarioimpianti.it" alt="#HTML" target="blank"><img src="../portfolio/impianti.jpg"/></a></div>
+	 <div class="slide"><a href="https://github.com/SimoneMSR/gentree" alt="#OpenGL#C++#Machine_learning" target="blank"><img src="https://raw.githubusercontent.com/SimoneMSR/gentree/master/demo/gentree.png"/></a></div>
+	</div>
 </div>
