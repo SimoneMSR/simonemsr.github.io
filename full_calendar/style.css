@@ -82,3 +82,12 @@ table.calendar td{
 button, svg[type="button"]{
 	cursor: pointer;
 }
+
+@media(max-width: 860px){
+	.fc-left{
+			width:100%;
+	}
+	.today{
+		width: 	100%;
+	}
+}
