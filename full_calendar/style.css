@@ -65,6 +65,7 @@ table.calendar td{
 
 .fc-left{
 	float: 	left;
+	    margin-bottom: 10px;
 }
 
 .fc-right{
