@@ -54,9 +54,6 @@
 				</table>
 			</div>
 			<div class="col-lg-10 col-xs-12">
-				<div class="row  header">
-						<img  class="avatar" src="user.png">
-				</div>
 				<div class="row col-xs-12">
 					<div id="calendar">
 						</div>
@@ -81,6 +78,10 @@ document.getElementsByTagName('body')[0].onload = function() {
 			      center: 'title',
 			      right: ' prevYear,prev,next,nextYear'
 			    }			  });
+
+			  setTimeout(function(){
+			  		$('.fc-toolbar.fc-header-toolbar').prepend('<div class="avatar-container"><img class="avatar" src="user.png"></div>');
+			  });
 
 });
 

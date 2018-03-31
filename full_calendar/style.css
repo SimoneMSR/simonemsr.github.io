@@ -72,11 +72,18 @@ button, svg[type="button"]{
 	cursor: pointer;
 }
 
-@media(max-width: 860px){
-	.fc-left{
-			width:100%;
-	}
+@media(max-width: 800px){
 	.today{
 		width: 	100%;
 	}
+	.avatar-container{
+		width: 	100%;
+	}
+.fc .fc-button-group>* {
+
+	font-size: 0.8em;
+}
+h2{
+	font-size: 1em;
+}
 }
