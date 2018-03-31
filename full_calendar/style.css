@@ -59,26 +59,10 @@ table.calendar td{
 	padding: 	0px;
 }
 
-.fc-button-group{
-	display: 	inline-block;
+table td {
+	padding-left: 10px;
 }
 
-.fc-left{
-	float: 	left;
-	    margin-bottom: 10px;
-}
-
-.fc-right{
-		float: right;
-}
-
-.fc-header-toolbar{
-	width: 80%;
-    position: relative;
-    margin: 0px;
-    padding: 14px;
-    text-align: 	center;
-}
 .chooseday{
 	    width: 30px !important;
     height: 30px !important;

@@ -2,10 +2,19 @@
 <html>
 <head>
 	<title>Demo for shapemorellp</title>
+			<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
-	</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.0/moment.min.js"></script>
+
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css">
+
+
 <!-- 	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script> -->
 </head>
 <body>
@@ -21,7 +30,7 @@
 						</tr>
 						<tr class="second">
 							<td>
-								Empleyee list
+								Employee list
 						</td>
 						</tr>
 						<tr class="third">
@@ -47,71 +56,10 @@
 			<div class="col-lg-10 col-xs-12">
 				<div class="row  header">
 						<img  class="avatar" src="user.png">
-				
-					<div class="fc-toolbar fc-header-toolbar">
-						<div class="fc-left">
-<div class="fc-button-group">
-								<button type="button" class="fc-today-button fc-button fc-state-default fc-corner-left fc-corner-right fc-state-disabled" disabled="">today</button>
-								<button type="button" class="fc-month-button fc-button fc-state-default fc-corner-left fc-state-active">month</button>
-								<button type="button" class="fc-agendaWeek-button fc-button fc-state-default">week</button>
-								<button type="button" class="fc-agendaDay-button fc-button fc-state-default">day</button>
-								<button type="button" class="fc-listWeek-button fc-button fc-state-default fc-corner-right">list</button>
-							</div>
-
-						</div>
-						<div class="fc-right">
-														<div class="fc-button-group">
-								<button type="button" class="chooseday fas fa-angle-left fc-button fc-state-default fc-corner-left" aria-label="prev">
-								</button>
-								<button type="button" class="chooseday fas fa-angle-right fc-button fc-state-default fc-corner-right" aria-label="next">
-								</button>
-							</div>
-
-							</div>
-								<div class="fc-center today"><h3> ...loading...</h3></div><div class="fc-clear"></div>
-				</div>
 				</div>
 				<div class="row col-xs-12">
-					<table class="table calendar table-bordered">
-					  <tbody>
-					    <tr>
-					      <th scope="row">1 am</th>
-					      <td>...</td>
-					    </tr>
-					    <tr>
-					      <th scope="row">2 am</th>
-					      <td>...</td>
-					    </tr>
-					    <tr>
-					      <th scope="row">3 am</th>
-					      <td>...</td>
-					    </tr>
-					    					    <tr>
-					      <th scope="row">4 am</th>
-					      <td>...</td>
-					    </tr>
-					    <tr>
-					      <th scope="row">5 am</th>
-					      <td>...</td>
-					    </tr>
-					    <tr>
-					      <th scope="row">6 am</th>
-					      <td>...</td>
-					    </tr>
-					    					    <tr>
-					      <th scope="row">7 am</th>
-					      <td>...</td>
-					    </tr>
-					    <tr>
-					      <th scope="row">8 am</th>
-					      <td>...</td>
-					    </tr>
-					    <tr>
-					      <th scope="row">9 am</th>
-					      <td>...</td>
-					    </tr>
-					  </tbody>
-					</table>
+					<div id="calendar">
+						</div>
 				</div>
 			</div>
 		</div>
@@ -120,8 +68,21 @@
 	<script type="text/javascript">
 document.getElementsByTagName('body')[0].onload = function() {
 
-     // set an element
-     document.querySelector('.today h3').innerHTML= new Date().toDateString();
+
+
+     $(document).ready(function() {
+
+			  // page is now ready, initialize the calendar...
+
+			  $('#calendar').fullCalendar({
+			  	defaultView : 'agendaWeek',
+			    header: {
+			      left: 'month,agendaWeek,agendaDay',
+			      center: 'title',
+			      right: ' prevYear,prev,next,nextYear'
+			    }			  });
+
+});
 
 };
 </script>
