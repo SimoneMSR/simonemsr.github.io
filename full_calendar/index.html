@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Demo for shapemorellp</title>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
+	</script>
+<!-- 	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script> -->
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-2 d-none d-xl-block sidebar">
+				<table >
+					<tbody>
+						<tr class="first">
+							<td >
+								Date picker
+						</td>
+						</tr>
+						<tr class="second">
+							<td>
+								Empleyee list
+						</td>
+						</tr>
+						<tr class="third">
+							<td>
+								<div>
+									<input type="checkbox" name="rakesh" checked> Rakesh
+								</div>
+								<div>
+									<input type="checkbox" name="rakesh"> Umesh
+								</div>
+								<div>
+									<input type="checkbox" name="rakesh">
+								Ravi
+								</div>
+								<div>
+									<input type="checkbox" name="rakesh"> Hitesh
+								</div>
+						</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="col-lg-10 col-xs-12">
+				<div class="row  header">
+						<img  class="avatar" src="user.png">
+				
+					<div class="fc-toolbar fc-header-toolbar">
+						<div class="fc-left">
+<div class="fc-button-group">
+								<button type="button" class="fc-today-button fc-button fc-state-default fc-corner-left fc-corner-right fc-state-disabled" disabled="">today</button>
+								<button type="button" class="fc-month-button fc-button fc-state-default fc-corner-left fc-state-active">month</button>
+								<button type="button" class="fc-agendaWeek-button fc-button fc-state-default">week</button>
+								<button type="button" class="fc-agendaDay-button fc-button fc-state-default">day</button>
+								<button type="button" class="fc-listWeek-button fc-button fc-state-default fc-corner-right">list</button>
+							</div>
+
+						</div>
+						<div class="fc-right">
+														<div class="fc-button-group">
+								<button type="button" class="chooseday fas fa-angle-left fc-button fc-state-default fc-corner-left" aria-label="prev">
+								</button>
+								<button type="button" class="chooseday fas fa-angle-right fc-button fc-state-default fc-corner-right" aria-label="next">
+								</button>
+							</div>
+
+							</div>
+								<div class="fc-center today"><h2>March 2018</h2></div><div class="fc-clear"></div>
+				</div>
+				</div>
+				<div class="row col-xs-12">
+					<table class="table calendar table-bordered">
+					  <tbody>
+					    <tr>
+					      <th scope="row">1 am</th>
+					      <td>...</td>
+					    </tr>
+					    <tr>
+					      <th scope="row">2 am</th>
+					      <td>...</td>
+					    </tr>
+					    <tr>
+					      <th scope="row">3 am</th>
+					      <td>...</td>
+					    </tr>
+					    					    <tr>
+					      <th scope="row">4 am</th>
+					      <td>...</td>
+					    </tr>
+					    <tr>
+					      <th scope="row">5 am</th>
+					      <td>...</td>
+					    </tr>
+					    <tr>
+					      <th scope="row">6 am</th>
+					      <td>...</td>
+					    </tr>
+					    					    <tr>
+					      <th scope="row">7 am</th>
+					      <td>...</td>
+					    </tr>
+					    <tr>
+					      <th scope="row">8 am</th>
+					      <td>...</td>
+					    </tr>
+					    <tr>
+					      <th scope="row">9 am</th>
+					      <td>...</td>
+					    </tr>
+					  </tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+	<script type="text/javascript">
+document.getElementsByTagName('body')[0].onload = function() {
+
+     // set an element
+     document.querySelector('.today h2').innerHTML= new Date().toDateString();
+
+};
+</script>
+</html>

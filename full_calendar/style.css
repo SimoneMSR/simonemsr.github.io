@@ -1,0 +1,84 @@
+.container>div{
+	border: none;
+}
+
+.header{
+	padding:5px;
+}
+
+.avatar{
+	height: 4em;
+    width: 4em;
+    border: solid;
+    border-width: 1px;
+    border-radius: 83px;
+    padding: 4px;
+    margin-left:2em;
+}
+
+.row, .col{
+	border:solid;
+	border-width: 1px;
+}
+
+table.calendar th{
+	width: 	10%;
+}
+
+table.calendar td{
+	width: 	90%;
+}
+
+.sidebar table{
+	height: 	100%;
+	width: 	100%
+}
+
+.sidebar table .first {
+		height: 	50%;
+}
+
+.sidebar .second {
+		height: 	5%;
+}
+
+.sidebar .third {
+		height: 	45%;
+}
+
+.sidebar tr{
+	border:solid;
+	border-width: 1px;
+}
+
+.sidebar {
+	padding: 	0px;
+}
+
+.fc-button-group{
+	display: 	inline-block;
+}
+
+.fc-left{
+	float: 	left;
+}
+
+.fc-right{
+		float: right;
+}
+
+.fc-header-toolbar{
+	width: 80%;
+    position: relative;
+    margin: 0px;
+    padding: 14px;
+    text-align: 	center;
+}
+.chooseday{
+	    width: 30px !important;
+    height: 30px !important;
+}
+
+button, svg[type="button"]{
+	cursor: pointer;
+}
