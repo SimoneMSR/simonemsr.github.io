@@ -88,7 +88,7 @@ button, svg[type="button"]{
 	cursor: pointer;
 }
 
-@media(max-width: 768px){
+@media(max-device-width: 768px){
 	.today{
 		width: 	100%;
 	}
