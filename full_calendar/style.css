@@ -96,7 +96,7 @@ button, svg[type="button"]{
 
 
 
-@media(max-device-width: 768px){
+@media(max-device-width: 320px){
 	.today{
 		width: 	100%;
 	}
@@ -140,7 +140,7 @@ button, svg[type="button"]{
 
 }
 
-@media (min-device-width: 768px){
+@media (min-device-width: 320px){
 	.d-md-block {
     display: block!important;
 	}
