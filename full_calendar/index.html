@@ -18,9 +18,9 @@
 <!-- 	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script> -->
 </head>
 <body>
-	<div class="container hidden">
+	<div class="container">
 		<div class="row">
-			<div class="col-lg-2 d-none d-xl-block sidebar">
+			<div class="col-md-2 d-none d-md-block sidebar">
 				<table >
 					<tbody>
 						<tr class="first">
@@ -53,8 +53,8 @@
 					</tbody>
 				</table>
 			</div>
-			<div class="col-lg-10 col-xs-12">
-				<div class="row col-xs-12">
+			<div class="col-md-10 d-xs-block col-xs-12">
+				<div class="row calendar-container col-xs-12">
 					<div id="calendar">
 						</div>
 				</div>
@@ -73,6 +73,7 @@ document.getElementsByTagName('body')[0].onload = function() {
 
 			  $('#calendar').fullCalendar({
 			  	defaultView : 'agendaWeek',
+			  	height: 'parent',
 			    header: {
 			      left: 'month,agendaWeek,agendaDay',
 			      center: 'title',

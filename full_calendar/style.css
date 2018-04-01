@@ -1,6 +1,22 @@
-body{
-	margin: 10px;
+html, body, .container, .container > div, .container  div.row.col-xs-12 {
+	height: 100%!important;
+	min-height: 100%;
 }
+body{
+	position: fixed;
+	width: 100%;
+	margin: 10px;
+	padding : 1em;
+}
+
+.fc-scroller{
+	height: inherit;
+}
+
+ div.row.col-xs-12 {
+ 	/*display: table;*/
+ }
+
 
 .container>div{
 	border: none;
@@ -72,7 +88,7 @@ button, svg[type="button"]{
 	cursor: pointer;
 }
 
-@media(max-width: 800px){
+@media(max-width: 768px){
 	.today{
 		width: 	100%;
 	}
