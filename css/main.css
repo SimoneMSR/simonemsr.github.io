@@ -1,15 +1,5 @@
 
 body { margin: 60px auto;  }
-html, body, main { height: 100%; }
-nav {
-	height: 10%;
-}
-.container {
-	height: 80%;
-}
-footer {
-	height: 10%;
-}
 a { text-decoration: none; color: #999!important; }
 a:hover { text-decoration: underline; }
 
