@@ -149,3 +149,13 @@ a.svg object {
 	position: relative; 
 	z-index: -1;
 }
+
+/* vertical align middle */
+
+.portfolio-items, .slick-list, .slick-track{
+    height: 100%;
+}
+
+.slick-slide{
+    transform: translateY(50%);
+}
