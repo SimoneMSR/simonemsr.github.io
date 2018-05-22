@@ -15,7 +15,7 @@
         var wait;
           if(toggle){
             svg.classList.add("animate");
-            wait=15*1000;
+            wait=5*1000;
           }
           else{
             svg.classList.remove("animate");
@@ -45,16 +45,16 @@
   animation-fill-mode: forwards;
       }
       #image2 {
-        animation-delay: 3s;
+        animation-delay: 1s;
       }
       #image3 {
-        animation-delay: 6s;
+        animation-delay: 2s;
       }
       #image4 {
-        animation-delay: 9s;
+        animation-delay: 3s;
       }
       #image5 {
-        animation-delay: 12s;
+        animation-delay: 4s;
       }
       @keyframes show {
         0% {
