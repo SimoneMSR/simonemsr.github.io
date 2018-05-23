@@ -165,7 +165,7 @@ footer{
     padding: 1.5rem;
 }
 
-@media (max-width: 768) {
+@media (max-width: 768px) {
     .navbar-collapse{
         background-color: white;
         padding: 2rem;
