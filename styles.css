@@ -172,7 +172,7 @@ footer{
     background: linear-gradient(90deg,white,#ffffff00);
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 768px) {
 
     .dropdown-menu{
         font-size: 2rem;
