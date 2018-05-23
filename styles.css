@@ -165,14 +165,22 @@ footer{
     padding: 1.5rem;
 }
 
-@media device and (max-resolution: 74dpi) {
-    .navbar-collapse{
-        background-color: white;
-        padding: 2rem;
-    }
+.navbar-collapse {
+    z-index: 2;
+    background-color: white;
+    padding: 2rem;
+    width: 50%;
+    opacity: 0.8;
+}
+
+@media screen and (max-resolution: 74dpi) {
 
     .dropdown-menu{
         font-size: 2rem;
+    }
+
+    .navbar-collapse {
+        width: 100%;
     }
 
     nav {
