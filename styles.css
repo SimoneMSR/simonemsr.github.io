@@ -165,11 +165,10 @@ footer{
     padding: 1.5rem;
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
     .navbar-collapse{
         background-color: white;
         padding: 2rem;
-        padding: 1.5rem;
     }
 
     .dropdown-menu{
