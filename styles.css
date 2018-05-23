@@ -165,7 +165,7 @@ footer{
     padding: 1.5rem;
 }
 
-@media screen and (max-width: 768px) {
+@media device and (max-resolution: 74dpi) {
     .navbar-collapse{
         background-color: white;
         padding: 2rem;
