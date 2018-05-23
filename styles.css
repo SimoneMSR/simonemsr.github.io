@@ -159,3 +159,29 @@ a.svg object {
 .slick-slide{
     transform: translateY(50%);
 }
+
+footer{
+    
+    padding: 1.5rem;
+}
+
+@media (max-width: 768) {
+    .navbar-collapse{
+        background-color: white;
+        padding: 2rem;
+        padding: 1.5rem;
+    }
+
+    .dropdown-menu{
+        font-size: 2rem;
+    }
+
+    nav {
+        font-size: 4rem!important;
+        z-index: 2;
+    }
+
+    footer{
+        font-size: 4rem!important;
+    }
+}
