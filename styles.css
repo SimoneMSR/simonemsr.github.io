@@ -162,10 +162,10 @@ a.svg object {
 
 footer{
     
-    padding: 1.5rem;
+    padding: 1rem;
 }
 
-.navbar-collapse {
+.navbar-collapse.show {
     z-index: 2;
     padding: 2rem;
     width: 50%;
@@ -175,20 +175,20 @@ footer{
 @media screen and (max-device-width: 768px) {
 
     .dropdown-menu{
-        font-size: 2rem;
+        font-size: 1rem;
     }
 
-    .navbar-collapse {
-        background: linear-gradient(90deg,white,#ffffff00);
+    .navbar-collapse.show {
+        background: linear-gradient(90deg,white,white,#ffffff00);
         width: 100%;
     }
 
     nav {
-        font-size: 4rem!important;
+        font-size: 1rem!important;
         z-index: 2;
     }
 
     footer{
-        font-size: 4rem!important;
+        font-size: 1rem!important;
     }
 }
