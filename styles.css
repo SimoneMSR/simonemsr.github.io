@@ -169,18 +169,18 @@ footer{
     z-index: 2;
     padding: 2rem;
     width: 50%;
-    background: linear-gradient(90deg,white,#ffffff00);
+    
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-device-width: 768px) {
 
     .dropdown-menu{
         font-size: 2rem;
     }
 
     .navbar-collapse {
+        background: linear-gradient(90deg,white,#ffffff00);
         width: 100%;
-        background: white;
     }
 
     nav {
