@@ -167,13 +167,12 @@ footer{
 
 .navbar-collapse {
     z-index: 2;
-    background-color: white;
     padding: 2rem;
     width: 50%;
-    opacity: 0.8;
+    background: linear-gradient(90deg,white,#ffffff00);
 }
 
-@media screen and (max-resolution: 74dpi) {
+@media screen and (min-resolution: 96dpi) {
 
     .dropdown-menu{
         font-size: 2rem;
@@ -181,6 +180,7 @@ footer{
 
     .navbar-collapse {
         width: 100%;
+        background: white;
     }
 
     nav {
