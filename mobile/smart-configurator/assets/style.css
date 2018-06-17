@@ -1,0 +1,40 @@
+.smart-configurator-mobile-app{
+	   position: absolute;
+	   height: 100%;
+	   width: 100%;
+}
+
+@media only screen and (min-width: 768px){
+.smart-configurator-mobile-app{
+    background-image: url(./imgs/devices-sprite.jpg);
+
+    background-size: cover;
+    left: 50%;
+    max-width: 510px;
+
+    width: 510px;
+    /* z-index: 20000000; */
+    background-position-y: 46%;
+
+}
+
+ion-app{
+    left: 59px !important;
+    top: 97px!important;
+    position: relative!important;
+    z-index: 0!important;
+    display: block!important;
+    width: 77.5%!important;
+    height: 83%!important;
+    background-color: #ffffff00!important;
+}
+
+ion-modal .modal-wrapper {
+	    width: 100%!important;
+    position: relative;
+    transform: translateX(0px);
+    left: 0;
+    top: 0;
+    height: 100%;
+}
+}

@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Gavazzi Test</title>
+<link href="css/bootstrap.min.css" rel="stylesheet" />
+<script type="text/javascript" language="javascript" src="js/jquery-3.3.1.min.js"></script>
+<script language="javascript" type="text/javascript">
+
+        var iodd;
+        var ioddSensor;
+        var ioddStandard;
+
+        // ----------- HERE TO ENABLE DEMO MODE -------------------
+
+        var offlineMode = true;
+
+        $(function () {
+            $.ajax({
+                type: "GET",
+                url: "IODD_CA18_CA30/CGI-CA30CA18IO-20170926-IODD1.1.xml",
+                dataType: "xml",
+                success: function (xml) {
+                    ioddSensor = $(xml);
+                    printIODDProcessData();
+                }
+            });
+
+            $.ajax({
+                type: "GET",
+                url: "IODD_CA18_CA30/IODDStandardDefinitions1.0.xml",
+                dataType: "xml",
+                success: function (xml) {
+                    ioddStandard = $(xml);
+                    printIODDProcessData();
+                }
+            });
+        });
+
+        function printIODDProcessData() {
+            if (ioddSensor && ioddStandard) {
+                processData = $(ioddSensor).find("ProcessDataCollection").children("ProcessData").children("ProcessDataIn");
+                var output = "<h3>Process Data</h3>Raw data: " + printIODDDataType($(processData), "0", "process");
+                $('#processData').html(output);
+            }
+        }
+
+        function printIODDRole(role) {
+            menuSet = $(ioddSensor).find(role);
+            var output = "<table class='table table-hover'>"
+            $(menuSet).children().each(function () {
+                output += "<tr><th scope='row' colspan='999'><h3>" + $(this).prop("tagName") + "</h3></th></tr>";
+                output += printIODDMenu($(ioddSensor).find("Menu[id='" + $(this).attr('menuId') + "']"), 0);
+            });
+            output += "</table>";
+            $('#iodd').html(output);
+            readConfigDataFromSensor();
+        }
+
+        function printOffset(offset) {
+            var output = "";
+            for (var i = 0; i < offset; i++) {
+                output += "<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>"
+            }
+            return output;
+        }
+
+        function printIODDMenu(obj, offset) {
+            //Stampa tutti gli elementi
+            var output = "";
+            $(obj).children().each(function () {
+                objType = $(this).prop("tagName");
+                switch (objType) {
+                    case "VariableRef":
+                        output += "<tr>" + printIODDVariable($(this), "", offset) + "</tr>";
+                        break;
+                    case "RecordItemRef":
+                        output += "<tr>" + printIODDRecordItem($(this), offset) + "</tr>";
+                        break;
+                    case "MenuRef":
+                        output += printIODDMenu($(ioddSensor).find("Menu[id='" + $(this).attr('menuId') + "']"), offset + 20);
+                        break;
+                    case "Name":
+                        output += "<tr><th scope='row' colspan='992' style='padding-left:" + offset + "px'>" + printIODDTranslatedText($(this).attr('textId')) + "</th></tr>";
+                        break;
+                    default:
+                        output += "<tr class='table-warning'><th scope='col' colspan='992' style='padding-left:" + offset + "px'>Menu type " + objType + " undefined</th></tr>";
+                }
+            });
+            return output;
+        }
+
+        function printIODDVariable(obj, subIndex, offset) {
+            var varId = $(obj).attr('variableId');
+            var output = "";
+
+            if ($(obj).find("Button").length > 0) {
+                var commandValue = $(obj).children("Button").attr("buttonValue");
+                var commandCaption = "";
+                var varObj;
+                if ($(ioddSensor).find("Variable[id='" + varId + "']").length > 0) {
+                    varObj = $(ioddSensor).find("Variable[id='" + varId + "']")
+                    commandCaption = printIODDTranslatedText($(varObj).children("Name").attr("textId"));
+                } if ($(ioddStandard).find("Variable[id='" + varId + "']").length > 0) {
+                    varObj = $(ioddStandard).find("Variable[id='" + varId + "']")
+                    commandCaption = printIODDTranslatedText($(varObj).children("Name").attr("textId"));
+                }
+                var index = $(varObj).attr("index");
+                var commandDescription = printIODDTranslatedText($(obj).find("Description").attr("textId"));
+                output += '<td colspan="990" style="padding-left:' + offset + 'px">' + commandCaption + '</td><td colspan="2"><button value="' + commandValue + '" index="' + index + '" onclick="clickFunction(this);">' + commandDescription + '</button></td>';
+            } else {
+                var refVar = $(ioddSensor).find("StdVariableRef[id='" + varId + "']");
+                var objVar;
+                if (refVar.length > 0) {
+                    //Dati standard
+                    objVar = $(ioddStandard).find("Variable[id='" + varId + "']");
+                } else {
+                    //Dati custom
+                    objVar = $(ioddSensor).find("Variable[id='" + varId + "']");
+                }
+                if (objVar.length > 0) {
+                    var varName = printIODDTranslatedText($(objVar).children('Name') != undefined ? $(objVar).children('Name').attr('textId') : varId);
+                    var defValue = $(objVar).attr('defaultValue') != undefined ? $(objVar).attr('defaultValue') : null;
+                    var posValue = $(objVar).attr('index');
+                    var accessRights = $(objVar).attr('accessRights');
+                    if (accessRights == "rw") {
+                        accessRights = "<button onclick='saveData(" + posValue + ");'>SAVE</button>"
+                    }
+                    var dataTypeRef = $(objVar).children('DatatypeRef');
+                    if (dataTypeRef.length > 0) {
+                        //Stampa il DataType complesso
+                        output += '<td colspan="990" style="padding-left:' + offset + 'px">' + varName + ':</td><td>' + printIODDDataTypeRef($(objVar), $(dataTypeRef).attr("datatypeId"), posValue) + '</td><td>' + accessRights + '</td>';
+                    } else {
+                        output += '<td colspan="990" style="padding-left:' + offset + 'px">' + varName + ':</td><td>' + printIODDDataType($(objVar)) + '</td><td>' + accessRights + '</td>';
+                    }
+                }
+            }
+            return output;
+        }
+
+        function clickFunction(obj) {
+            var index = $(obj).attr("index");
+            var value = $(obj).attr("value");
+            doSend(compileMessage(3, index, padLeft(parseInt(value).toString(16), 2)));
+        }
+
+        function saveData(index) {
+            var field = $(".data[index='" + index + "']");
+            var datatype = $(field).attr("datatype");
+            var dataLenght = $(field).attr("bitlength");
+            var hexValue = padLeft("", dataLenght/4);
+            switch (datatype) {
+                case "StringT":
+                    hexValue = padRight(a2hex($(field).val()), dataLenght / 4);
+                    break;
+                case "UIntegerT":
+                case "IntegerT":
+                    hexValue = padLeft(parseInt($(field).val(),2).toString(16), dataLenght / 4);
+                    break;
+                case "Binary":
+                    var binValue = field.val();
+                    hexValue = "";
+                    for (var i = 0; i < binValue.length; i+=4) {
+                        hexValue += parseInt(binValue.substr(i, 4), 2).toString(16);
+                    }
+                    //hexValue = padLeft(parseInt(field.val(), 2).toString(16), dataLenght / 4);
+                    break;
+                default:
+            }
+            doSend(compileMessage(3, index, hexValue)); //Scrive il nuovo valore del parametro
+            doSend(compileMessage(2, index, "")); //Legge il valore del paraetro dal sensore
+        }
+
+        function compileMessage(commandId, msgId, payload) {
+            var msg = '02' +    //Protocol Revision
+                padLeft(parseInt(commandId).toString(16), 2) +    //CMD_ALWRITEREQ
+                '00' +    //Port
+                padLeft(parseInt(msgId).toString(16), 2) + //Low Byte des Index
+                '00' +    //High Byte des Index
+                '00';    //Subindex solo per comando di tipo 3
+            if (payload != "") {
+                msg += padLeft((payload.length / 2).toString(16), 2) +
+                       payload;
+            }
+
+            msg = padLeft((msg.length / 2 + 2).toString(16), 2) +
+                  '00' +
+                   msg;
+            return "s:" + msg.toUpperCase();
+        }
+
+        function printIODDDataType(obj, index = "", classPrefix = "") {
+            var output = "";
+            if ($(obj).children().length == 0) {
+                output += $(obj).attr('id') + " defined, but not implemented in IODD file.";
+            } else {
+                output += printIODDField($(obj).children("Datatype"), index=="" ? $(obj).attr('index') : index, classPrefix);
+            }
+            if ($(obj).attr('defaultValue')) output += "<br/>Default value: \"" + $(obj).attr('defaultValue') + "\"";
+            return output;
+        }
+
+        function printIODDDataTypeRef(obj, dataType = "", index = "", classPrefix = "") {
+            var output = "";
+            var dataTypeRefObj = $(ioddSensor).find("Datatype[id='" + dataType + "']");
+            var bitLength = $(dataTypeRefObj).attr('bitLength') ? $(dataTypeRefObj).attr('bitLength') : 1;
+            var bitOffset = 0;
+            output += "<input style='border:0' size='50' type='text' index='" + index + "' bitLength='" + bitLength + "' bitOffset='" + bitOffset + "' class='" + classPrefix + "data' value='' dataType='Binary' subdata='true'>";
+            output += "<table>"
+            $(obj).children("RecordItemInfo").each(function () {
+                var recordItemObj = dataTypeRefObj.children("RecordItem[subindex='" + $(this).attr("subindex") + "']")
+                var fieldName = printIODDTranslatedText($(recordItemObj).children("Name").attr("textId"));
+                var fieldHtml = printIODDField($(recordItemObj).children("SimpleDatatype"), index, "sub");
+                output += "<tr><td>" + fieldName + "</td><td>" + fieldHtml + "</td></tr>";
+            })
+            output += "</table>"
+            return output;
+        }
+
+        function printIODDFieldRef(obj, dataType = "", index, classPrefix = "") {
+            var output = "";
+            output += printIODDDataTypeRef(obj, dataType, index, classPrefix);
+            return output;
+        }
+
+        function printIODDField(obj, index, classPrefix = "") {
+            var output = "";
+            var dataType = $(obj).attr('xsi:type');
+            var bitOffset = $(obj).parent().attr('bitOffset') ? $(obj).parent().attr('bitOffset') : 0;
+            var bitLength = $(obj).attr('bitLength') ? $(obj).attr('bitLength') : 
+                            $(obj).attr('fixedLength') ? $(obj).attr('fixedLength')*8 : 1;
+            if (!dataType) {
+                console.log($(obj));
+            }
+            switch (dataType) {
+                case "StringT":
+                case "UIntegerT":
+                case "IntegerT":
+                case "BooleanT":
+                    if ($(obj).children("SingleValue").length > 0) {
+                        output += "<input type='hidden' index='" + index + "' bitLength='" + bitLength + "' bitOffset='" + bitOffset + "' class='" + classPrefix + "data' value='' dataType='" + dataType + "' size='2'>";
+                        output += "<select index='" + index + "' bitOffset='" + bitOffset + "' bitLength='" + bitLength + "' class='" + classPrefix + "dataList' onchange='updatedFromUser(this);'>";
+                        $(obj).find("SingleValue").each(function () {
+                            output += "<option value='" + $(this).attr("value") + "'>" + printIODDTranslatedText($(this).children("Name").attr("textId")) + "</option>";
+                        });
+                        output += "</select>";
+                    } else {
+                        output += "<input type='text' index='" + index + "' bitLength='" + bitLength + "' bitOffset='" + bitOffset + "' class='" + classPrefix + "data' value='' dataType='" + dataType + "' onchange='updatedFromUser(this);'>";
+                    }
+                    break;
+                case "RecordT":
+                    output += "<input style='border:0' size='50' type='text' index='" + index + "' bitLength='" + bitLength + "' bitOffset='" + bitOffset + "' class='" + classPrefix + "data' value='' dataType='Binary' subdata='true'>";
+                    output += "<table>"
+                    $(obj).children("RecordItem").each(function () {
+                        output += "<tr><td>" + printIODDTranslatedText($(this).children("Name").attr("textId")) + "</td><td>";
+                        if ($(this).children("SimpleDatatype").length) {
+                            output += printIODDField($(this).children("SimpleDatatype"), index, "sub");
+                        } else if ($(this).children("DatatypeRef").length) {
+                            output += printIODDFieldRef($(this), $(this).children("DatatypeRef").attr("datatypeId"), index, "sub");
+                        }
+                        output += "</td></tr>";
+                    })
+                    output += "</table>";
+                    break;
+                default:
+                    output += "Data type " + dataType + " to be implemented.";
+            }
+            return output;
+        }
+
+        function updatedFromUser(obj) {
+            var index = $(obj).attr("index");
+            var bitOffset = $(obj).attr("bitOffset");
+            var bitLength = $(obj).attr("bitLength");
+            var dataType = $(obj).attr("datatype");
+            switch (dataType) {
+                case "Binary":
+                    if (parseInt($(obj).val()).toString(2).length > bitLength) {
+                        alert("Data is too big");
+                        parseInt($(obj).val(2 ** bitLength - 1));
+                        return false;
+                    } 
+                    break;
+                default:
+            }
+            if ($(obj).attr("class").indexOf("sub") == 0 || $(obj).attr("class").indexOf("dataList") == 0) {
+                var subValue = bitLength == 1 ? ($(obj).val()=="true"?1:0) : padLeft(parseInt($(obj).val()).toString(2), bitLength);
+                var data = $(".data[index='" + index + "']");
+                var value = $(data).val();
+                $(data).val(value.substr(0, value.length - bitOffset - bitLength) + subValue + value.substr(value.length - bitOffset));
+            }
+        }
+
+        function updateSubData(index, prefix = "") {
+            $(".subdata[index='" + index + "']").each(function () {
+                var bitOffset = $(this).attr("bitOffset");
+                var bitLength = $(this).attr("bitLength");
+                var value = $("." + prefix + "data[index='" + index + "']").val();
+                value = value.substr(value.length - bitOffset - bitLength, bitLength);
+                value = parseInt(value, 2).toString(10);
+                value = uintToInt(value, bitLength);
+                if (bitLength == 1) value = value == 0 ? "false" : "true";
+                $(this).val(value);
+            });
+            $(".subdata[index='" + index + "']").each(function () {
+                $(".subdataList[index='" + $(this).attr("index") + "'][bitOffset='" + $(this).attr("bitOffset") + "']").val($(this).val());
+            });
+
+        }
+
+        function uintToInt(uint, nbit) {
+            nbit = +nbit || 32;
+            if (nbit > 32) throw new RangeError('uintToInt only supports ints up to 32 bits');
+            uint <<= 32 - nbit;
+            uint >>= 32 - nbit;
+            return uint;
+        }
+
+        function printIODDRecordItem(obj, offset) {
+            var varId = $(obj).attr('variableId');
+            var subIndex = $(obj).attr('subindex');
+            var output = printIODDVariable($(obj), subIndex, offset);
+            return output;
+        }
+
+        function printIODDTranslatedText(id) {
+            var text = $(ioddSensor).find('ExternalTextCollection').find("Text[id='" + id + "']").attr('value');
+            var stdText = $(ioddStandard).find('ExternalTextCollection').find("Text[id='" + id + "']").attr('value');
+            return text != undefined ? text : stdText;
+        }
+
+        function doContRead() {
+            if (contRead == undefined) {
+                contRead = setInterval("readProcessDataFromSensor()", 800);
+            } else {
+                clearTimeout(contRead);
+                contRead = undefined;
+            }
+        }
+
+        function readConfigDataFromSensor() {
+            $(".data").each(function () {
+                var index = $(this).attr('index');
+                index = (65536 + parseInt(index)).toString(16).toUpperCase();
+                index = index.substr(3, 2) + index.substr(1, 2);
+                doSend("s:0800020200" + index + "00");
+            })
+        }
+
+        function readProcessDataFromSensor() {
+            //Read process data
+            doSend("s:0500020AFF");
+        }
+
+    </script>
+</head>
+<body>
+<nav class="navbar navbar-default">
+<div class="container-fluid">
+
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="#">Carlo Gavazzi</a>
+</div>
+
+<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+<ul class="nav navbar-nav">
+<li class="active"><a href="#">Smart Configurator <span class="sr-only">(current)</span></a></li>
+</ul>
+<ul class="nav navbar-nav navbar-right">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Example menu <span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li><a href="#">Action</a></li>
+<li><a href="#">Another action</a></li>
+<li><a href="#">Something else here</a></li>
+<li role="separator" class="divider"></li>
+<li><a href="#">Separated link</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+<div class="container">
+<div class="page-header">
+<h1>Gavazzi Smart Configurator</h1>
+<p class="lead">Test and development environment</p>
+</div>
+<div class="row">
+<div class="col-md-6 gavazzi">
+<table width="100%">
+<tr>
+<td width="30%">Status</td>
+<td width="70%" id="status"></td>
+</tr>
+<tr>
+<td>Smart Configurator status</td>
+<td id="sc_status"></td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;Last message from</td>
+<td id="rx_smartconf"></td>
+</tr>
+<tr>
+<td>IOMaster status</td>
+<td id="iomaster"></td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;Last message to</td>
+<td id="tx_iomaster"></td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;Last message from</td>
+<td id="rx_iomaster"></td>
+</tr>
+<tr>
+<td>Sensor</td>
+<td id="sensor"></td>
+</tr>
+</table>
+<br />
+<div id="processData"></div>
+<br />
+<div id="console"></div>
+</div>
+<div class="col-md-6">
+<button onclick="printIODDRole('ObserverRoleMenuSet')">OBSERVER</button>
+<button onclick="printIODDRole('MaintenanceRoleMenuSet')">MANTENANCE</button>
+<button onclick="printIODDRole('SpecialistRoleMenuSet')">SUPERVISOR</button>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<button onclick="doContRead()">READ DATA</button>
+<div id="iodd"></div>
+</div>
+</div>
+</div>
+<style>
+        .gavazzi table {
+            border-spacing: 0;
+            border-right: 1px solid;
+            border-bottom: 1px solid;
+        }
+
+        .gavazzi td {
+            border-left: 1px solid;
+            border-top: 1px solid;
+            padding: 5px;
+        }
+    </style>
+<script src="js/bootstrap.min.js"></script>
+<script language="javascript" type="text/javascript">
+        var wsUri = "ws://192.168.1.65:1234";
+        var o;
+        var poolSensor;
+        var msgQueue = [];
+        var serialBusy = true;
+        var contRead;
+
+        var lastRegistry = 0;
+
+        function init() {
+            o = document.getElementById("console");
+            testWebSocket();
+        }
+
+        function testWebSocket() {
+            if (offlineMode) {
+                document.getElementById("status").innerHTML = "Connection error: DEMO mode ON";
+                onError();
+            } else {
+                document.getElementById("status").innerHTML = "Connecting...";
+                websocket = new WebSocket(wsUri);
+                websocket.onopen = function (evt) { onOpen(evt) };
+                websocket.onclose = function (evt) { onClose(evt) };
+                websocket.onmessage = function (evt) { onMessage(evt) };
+                websocket.onerror = function (evt) { onError(evt) };
+            }
+        }
+
+        function onOpen(evt) {
+            writeToScreen("CONNECTED");
+            document.getElementById("status").innerHTML = "CONNECTED";
+            //Try to connect to IOMaster
+            doSend("s:0500026700");
+        }
+
+        function onClose(evt) {
+            writeToScreen("DISCONNECTED");
+        }
+
+        var lastOut = "";
+        function onMessage(evt) {
+            if (evt.data.substr(0, 2) == 'i:') {
+                if (lastOut != "") {
+                    console.log('"' + lastOut + '" : "' + evt.data + '",');
+                }
+                lastOut = "";
+            } else if (evt.data.substr(0, 2) == 'o:') {
+                lastOut = evt.data;
+            }
+            writeToScreen(evt.data);
+            document.getElementById("rx_smartconf").innerHTML = evt.data;
+            switch (evt.data.substr(0, 2)) {
+                case "i:":
+                    document.getElementById("rx_iomaster").innerHTML = decodeIOMessage(evt.data, 1, 'i');
+                    serialBusy = false;
+                    doSendNext();
+                    break;
+                case "o:":
+                    status = decodeIOMessage(evt.data, 0, 'o');
+                    if (status != "")
+                        document.getElementById("iomaster").innerHTML = status;
+                    document.getElementById("tx_iomaster").innerHTML = decodeIOMessage(evt.data, 1, 'o');
+                    break;
+                case "s:":
+                    document.getElementById("rx_smartconf").innerHTML = evt.data;
+                    break;
+                default:
+                    document.getElementById("sc_status").innerHTML = decodeSCStatus(evt.data);
+            }
+        }
+
+        function doSendNext() {
+            //Manda i messaggi in coda
+            if (msgQueue.length > 0) {
+                doSend(msgQueue.shift());
+            }
+        }
+
+        function decodeSCStatus(msg) {
+            data = msg.split(";");
+            output = "WiFi mode: " + data[0];
+            output += "<br/>" + "WiFi status: " + data[1];
+            output += "<br/>" + "WiFi SSID: " + data[2];
+            output += "<br/>" + "WiFi IP address: " + data[3];
+            output += "<br/>" + "Serial port status: " + data[4];
+            output += "<br/>" + "Devices connected: " + data[5];
+
+            if (data[4] == "Connected") {
+                serialBusy = false;
+                setTimeout("doSendNext();", 1000);
+            }
+
+            return output;
+        }
+
+        function decodeIOMessage(msg, mode, io) {
+            //mode=0 -> status, mode=1 -> command description
+            msg = msg.substr(2)
+            cmdCode = msg.substr(6, 2);
+            switch (cmdCode) {
+                case "67":
+                    output = mode == 0 ? "Connected" : "GetMasterInfoReq";
+                    if (io == 'i') {
+                        //IOMaster connected, try to configure ports
+                        doSend("s:2400020F0000001100000000000000000000000000000000000000000000000000000000"); //Set port 0 to NC
+                        doSend("s:2400020F0100001100000000000000000000000000000000000000000000000000000000"); //Set port 1 to NC
+                        doSend("s:2400020F00000C1100000000000000000000000000000000000000000000000000002020"); //Set port 0 to IOLINK_OP
+                        doSend("s:2400020F0100031100000000000000000000000000000000000000000000000000002020"); //Set port 1 to SIO_INPUT
+                        doSend("s:2500020B000000000000000000000000000000000000000000000000000000000000000000"); //Scrive la configurazione di lettura
+                    }
+                    break;
+                case "10":
+                    output = mode == 0 ? "" : "GetPortConfig " + msg.substr(8, 2);
+                    break;
+                case "0A":
+                    output = mode == 0 ? "Read process data on port " + msg.substr(8, 2) : "ReadProcessDataReq " + msg.substr(8, 2);
+                    if (io = 'i' && msg.length>=20) {
+                        dump = ""
+                        for (var i = 0; i < msg.length; i += 2) {
+                            dump += msg.substr(i, 2) + " ";
+                        }
+                        document.getElementById("sensor").innerHTML = dump;
+                        $(".processdata").val(decodeDataValue(msg, $(".processdata").attr('bitlength'), "Binary", 12));
+                        updateSubData(0, "process");
+                    }
+                    break;
+                case "0F":
+                    output = mode == 0 ? "Set IO Master port " + msg.substr(8, 2) + " to mode " + portMode(msg.substr(12, 2)) + " (" + msg.substr(12, 2) + ")" : "SM_SetPortConfig " + msg.substr(8, 2);
+                    break;
+                case "02":
+                    if (mode == 0) {
+                        lastRegistry = parseInt(msg.substr(12, 2) + msg.substr(10, 2), 16);
+                        output = "Data read of registry " + lastRegistry;
+                    }
+                    break;
+                case "09":
+                    if (mode == 1) {
+                        output = "Data from registry " + lastRegistry;
+                        var dataValue = decodeDataValue(msg, $(".data[index='" + lastRegistry + "']").attr('bitlength'));
+                        $(".data[index='" + lastRegistry + "']").val(dataValue);
+                        $(".dataList[index='" + lastRegistry + "']").val(dataValue);
+                        if ($(".data[index='" + lastRegistry + "']").attr("subdata") == "true") {
+                            updateSubData(lastRegistry);
+                        }
+                    }
+                    break;
+                default:
+                    output = mode == 0 ? "" : "Unmapped command";
+            }
+            if (mode == 1) {
+                output += "<br/>0x "
+                for (var i = 0; i < msg.length; i += 2) {
+                    output += msg.substr(i, 2) + " ";
+                }
+            }
+            return output;
+        }
+
+        function decodeDataValue(msg, bitLength, dataType = "", offset = 12) {
+            dataType = dataType == "" ? $(".data[index='" + lastRegistry + "']").attr('dataType') : dataType;
+            var dataValue = "";
+            switch (dataType) {
+                case "StringT":
+                    dataValue = hex2a(msg.substr(offset));
+                    break;
+                case "BooleanT":
+                    dataValue = parseInt(msg.substr(offset), 16) == 0 ? "false" : "true";
+                    break;
+                case "Binary":
+                    dataValue = padLeft(parseInt(msg.substr(offset, bitLength / 4), 16).toString(2), bitLength);
+                    if (bitLength == 1) dataValue = dataValue == 0 ? "false" : "true";
+                    break;
+                case "UIntegerT":
+                case "IntegerT":
+                    dataValue = parseInt(msg.substr(offset), 16);
+                    break;
+                default:
+                    dataValue = msg;
+            }
+            return dataValue;
+        }
+
+        function hex2a(hexx) {
+            var hex = hexx.toString();//force conversion
+            var str = '';
+            for (var i = 0; (i < hex.length && hex.substr(i, 2) !== '00'); i += 2)
+                str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+            return str;
+        }
+
+        function a2hex(str) {
+            var hex = '';
+            for (var i = 0; i < str.length; i++) {
+                hex += '' + str.charCodeAt(i).toString(16);
+            }
+            return hex;
+        }
+
+        function padLeft(nr, n, str) {
+            return Array(n - String(nr).length + 1).join(str || '0') + nr;
+        }
+
+        function padRight(nr, n, str) {
+            return nr + Array(n - String(nr).length + 1).join(str || '0');
+        }
+
+        function portMode(mode) {
+            switch (mode) {
+                case "00":
+                    output = "NC";
+                    break;
+                case "03":
+                    output = "SIO_INPUT";
+                    break;
+                case "0C":
+                    output = "IOLINK_OP";
+                    break;
+                default:
+                    output = "UNKNOWN";
+            }
+            return "SM_MODE_" + output;
+        }
+
+        var simulatorJSON;
+
+        function onError(evt) {
+            document.getElementById("status").innerHTML = "Connection error: DEMO mode ON";
+            if (evt) writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
+            offlineMode = true;
+            serialBusy = false;
+            $.getJSON("IODD_CA18_CA30/simulator.json", function (data) {
+                simulatorJSON = data;
+                doSend("s:0500026700");
+            });
+        }
+
+        function sensorReply(key) {
+            if (key.substr(0, 2) == "s:") {
+                key = "o:" + key.substr(2);
+            }
+            var evt = { "data": simulatorJSON[key] };
+            if (evt.data != undefined) {
+                onMessage({ "data": key });
+                console.log(key);
+                onMessage(evt);
+            }
+        }
+
+        function doSend(message) {
+            if (serialBusy) {
+                msgQueue.push(message);
+            } else {
+                serialBusy = true;
+                if (offlineMode) {
+                    //in offlinemode replicate the sensor reply with the json data file
+                    onMessage({ "data": message });
+                    sensorReply(message);
+                } else {
+                    websocket.send(message);
+                }
+            }
+        }
+
+        function writeToScreen(message) {
+            var pre = document.createElement("p");
+            pre.style.margin = "0";
+            pre.style.wordWrap = "break-word";
+            pre.innerHTML = message;
+
+            //$("#console").append(pre);
+        }
+
+        window.addEventListener("load", init, false);
+
+    </script>
+</body>
+</html>
