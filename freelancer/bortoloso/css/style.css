@@ -1,0 +1,434 @@
+/*!
+ * Start Bootstrap - Shop Homepage (http://startbootstrap.com/)
+ * Copyright 2013-2016 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
+ */
+* {outline:none !important;}
+body {
+   font-family: 'Open Sans', sans-serif;
+    
+}
+.row.nomargin {
+    margin: 0;
+}
+input,.dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover, .bootstrap-select>.dropdown-toggle.bs-placeholder:focus {outline: none !important;}
+input:focus {outline:none;}
+a, p {
+     color: #555; 
+}
+.slide-image {
+    width: 100%;
+}
+
+.carousel-holder {
+    margin-bottom: 30px;
+}
+
+.carousel-control,
+.item {
+    border-radius: 4px;
+}
+
+.caption {
+    height: 130px;
+    overflow: hidden;
+}
+
+.caption h4 {
+    white-space: nowrap;
+}
+
+.thumbnail img {
+    width: 100%;
+}
+
+.ratings {
+    padding-right: 10px;
+    padding-left: 10px;
+    color: #d17581;
+}
+
+.thumbnail {
+    padding: 0;
+}
+
+.thumbnail .caption-full {
+    padding: 9px;
+    color: #333;
+}
+.navbar-inverse .navbar-toggle {
+    border-color: #fff;
+}
+button.navbar-toggle {margin-right: 0;margin-top: 10px;
+    margin-bottom: 0;}
+.navbar-inverse .navbar-toggle:focus, .navbar-inverse .navbar-toggle:hover {
+    background-color: #334263;
+}
+.nav.navbar-nav {float: right;}
+.bootstrap-select.btn-group .dropdown-menu {top: 39px;}
+.navbar-inverse {
+        height: 88px;
+    background: #4b6292;
+    border: none;
+    border-radius: inherit;
+}
+.navbar-inverse .navbar-nav>li>a {
+    color: #fff;
+}
+.navbar .col-md-6 {
+    padding: 0 0 0 7px;
+}
+.navbar-nav {
+ padding-top: 16px;
+}
+.isearch{
+    margin-top: 22px;
+    width: 100%;
+    padding: 10px 0 10px 130px;
+    border:none;
+    border-radius: 4px;
+}
+.bg_res {
+    background: #e0e0e0;
+    width: 100%;
+    height: 50px;
+    margin-top: -20px;
+    display: none;
+}
+.cartobar {
+    background: #e0e0e0;
+    width: 100%;
+    height: 50px;
+    margin-top: -20px;
+    margin-bottom: 18px;
+}
+.cartoname{
+    display: flex;
+    -webkit-align-items: center; 
+    align-items: center;
+    -webkit-align-content: center;
+    align-content: center;
+    height: 50px;
+}
+.cartobar h5{
+    font-size: 14px;
+    padding: 3px 0;
+    font-weight: 600;
+}
+.cartobar .btn-add {
+    margin-top: -3px;
+}
+
+.cartobar .col-md-4, .cartobar .col-md-3 {
+    padding-top: 7px;
+}
+.input-group.group-carto .form-control{
+    height: 36px;
+}
+.bootstrap-select {
+    position: absolute;
+    top: 22px;
+}
+.bootstrap-select>.dropdown-toggle {
+    position: absolute;
+    right: 105px;
+    height: 40px;
+    width: 115px;
+    border-radius: 4px 0 0 4px;
+    background: #dee5e7;
+}
+.bootstrap-select.btn-group .dropdown-toggle .filter-option {
+    font-size: 12px;
+    padding: 1px;
+}
+.bootstrap-select.btn-group .dropdown-menu li a span.text {  font-size: 12px;}
+.search_go {
+    position: absolute;
+    right: 0;
+    top: 22px;
+    height: 40px;
+    border-radius: 0 4px 4px 0;
+    border: 1px solid #febd69;
+    background: #febd69;
+    content: 'ciao';
+    width: 60px;
+}
+.search_go span {font-size: 0;}
+.search_go span .fa-search {
+    font-size: 18px;
+    line-height: 35px;
+}
+.superlogo {
+    max-width: 160px;
+    margin-top: 4px;
+    border: 2px solid #FFF;
+}
+.rside h3 {
+    color: #4b6292;
+    margin-top: 0;
+}
+.nopdl{padding-left: 0 !important;}
+.nopdr {padding-right: 0 !important;}
+.titoho {
+    margin: -7px 0 20px;
+    font-size: 21px;
+    border-bottom: 1px solid;
+    padding: 10px;
+    color: #4b6292;
+}
+.left.fa, .right.fa {
+        font-size: 22px;
+    padding: 10px;
+}
+.left.fa:hover, .right.fa:hover, .left.fa:focus, .right.fa:focus{
+    text-decoration: none;
+}
+.blocco2h {
+        margin-top: 35px;
+}
+.rating {
+    text-align: center;
+    padding: 10px 0 0;
+}
+.fa-star, .fa-star-half {
+        color: #f8d568;
+}
+.photo img {
+        max-height: 298px;
+}
+.btn-add a, .superbutton {
+    width: 100%;
+    display: block;
+    text-align: center;
+    background-color: #dee5e7;
+    padding: 10px;
+    border-radius: 2px;
+    border-bottom: 2px solid #8c8c8c;
+    max-width: 235px;
+}
+.btn-add a:hover {
+    color: #fff;
+    background-color: #8c8c8c;
+    text-decoration: none;}
+.btn-add a .fa {
+    margin-right: 9px;
+}
+.price-text-color {
+    color: #4b6292;
+}
+.col-md-2 .btn-add a {
+    font-size: 11px;
+}
+.col-md-2 .price-text-color {
+    margin-top: 0;
+}
+.col-md-2 .col-item {
+    margin-top: 18px;
+}
+.col-md-2 .photo img {
+    max-height: 182px;
+}
+
+
+
+
+
+footer {
+  font-size: 12px;
+   color: #555; 
+}
+footer .infosito ul {
+    padding: 0;
+}
+footer .infosito li {
+    list-style-type: none;
+    padding: 0;
+}
+footer .infosito h4 {
+    font-size: 15px;
+    font-weight: 600;
+}
+.copyright {
+    background: #dee5e7;
+    padding: 20px 0;
+    margin-top: 20px;
+    color: #a7a7a7;
+}
+.copyright p {
+    margin: 0;
+     color: #a7a7a7;
+}
+.copyright .facebook {
+    position: absolute;
+    right: 0;
+    top: -4px;
+}
+
+.genere .col-md-2 .fa {
+        display: inline-block;
+}
+
+.scheda-libro .contentbox{
+    margin: 0;
+    padding-bottom: 25px;
+    padding-top: 7px;
+    margin-bottom: 15px;
+    border-bottom: 1px dashed #555;
+}
+.scheda-libro .contentbox .col-md-8 {
+    padding-left: 0;
+}
+.scheda-libro .contententimg img {
+    max-width: 100%;
+    max-height: 370px;
+}
+.scheda-libro .contentbox h1.titolo-libro {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 600;
+}
+.scheda-libro .contentbox h3.autore {
+    margin: 4px 0 26px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #555;
+}
+.scheda-libro .contentbox p.details-p {
+    margin: 5px 0;
+}
+.scheda-libro .contentbox .normal-price {
+        font-size: 21px;
+        color: #4b6292;
+}
+.scheda-libro .contentbox .disponibilita {
+        font-weight: 600;
+        margin: 12px 0px;
+}
+.scheda-libro span.descrip {
+    position: absolute;
+    bottom: -20px;
+    font-size: 11px;
+    left: 0;
+}
+.buttons-cartolibrerie{
+    display: inline-block;
+    padding-bottom: 29px;
+}
+.buttons-cartolibrerie p {
+    font-weight: 600;
+}
+.spinner {
+  width: 100px;
+}
+.spinner input {
+  text-align: right;
+}
+.spinner .form-control {
+    text-align: center;
+    padding: 6px 10px;
+}
+.input-group-btn-vertical {
+  position: relative;
+  white-space: nowrap;
+  width: 1%;
+  vertical-align: middle;
+  display: table-cell;
+}
+.input-group-btn-vertical > .btn {
+  display: block;
+  float: none;
+  width: 100%;
+  max-width: 100%;
+  padding: 8px;
+  margin-left: -1px;
+  position: relative;
+  border-radius: 0;
+}
+.input-group-btn-vertical > .btn:first-child {
+  border-top-right-radius: 4px;
+}
+.input-group-btn-vertical > .btn:last-child {
+  margin-top: -2px;
+  border-bottom-right-radius: 4px;
+}
+.input-group-btn-vertical i{
+  position: absolute;
+  top: 0;
+  left: 4px;
+}
+
+.green {
+    color: #4bb74b;
+}
+.btn-add.button-actions a{
+    display: inline-block;
+    margin-bottom: 10px;
+}
+.btn-add a.acquisto, .superbutton{
+    margin-right: 10px;
+    background-color: #febd69;
+    border-color: #edaf5f;
+}
+.btn-add a.acquisto.carto{
+    max-width: 100%;
+}
+.btn-add a.acquisto:hover, .superbutton:hover{
+    color: #333;
+    background-color: #edaf5f;
+}
+.btn-cartolibrerie{
+    background: #4CAF50;
+    color: #fff;
+    border-color: #4a8e4d;
+    border-bottom: 3px solid #4a8e4d;
+}
+.account{
+     padding-top: 37px;
+}
+.account .btn-group .btn-active{
+    background: #dee5e7;
+    cursor: default;
+    border: 1px solid #969696 !important;
+}
+.account {
+    color: #555;
+}
+.account form {
+    max-width: 510px;
+    margin: auto;
+}
+.account .form-control{
+    height: 42px;
+}
+.account h3{
+    color: #4b6292;
+    margin: 32px 0;
+    border-bottom: 2px solid;
+    padding-bottom: 17px;
+}
+.account .superbutton{
+    max-width: 100%;
+    margin-top: 15px;
+}
+.account th {
+    background: #4b6292;
+    color: #fff;
+    border: none;
+}
+a.product_title{
+    color: #4b6292;
+    font-weight: 600;
+}
+.btn-group>.btn-group:not(:first-child):not(:last-child) >.btn {
+    border-left: none;
+    border-right: none;
+}
+.table>tbody>tr>td {
+    border-bottom: 1px solid #ddd;
+    border-top: none;
+}
+@media (min-width: 768px)
+{
+.navbar-collapse {
+    width: 25%; }
+}
