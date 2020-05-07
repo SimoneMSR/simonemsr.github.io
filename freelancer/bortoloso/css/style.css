@@ -66,8 +66,7 @@ button.navbar-toggle {margin-right: 0;margin-top: 10px;
 }
 .nav.navbar-nav {float: right;}
 .bootstrap-select.btn-group .dropdown-menu {top: 39px;}
-.navbar-inverse {
-        height: 88px;
+.navbar {
     background: #4b6292;
     border: none;
     border-radius: inherit;

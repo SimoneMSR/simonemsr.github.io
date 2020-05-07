@@ -1,4 +1,4 @@
-@media (max-width: 1199px) {
+
     .navbar-nav {
     padding-top: 23px;
 }
@@ -19,9 +19,6 @@
     .genere .col-md-2 .fa {
         display: none;
     }
-    
-}
-
 
 @media (min-width: 768px) and (max-width: 991px) {
   nav .col-md-3 {width: 25%;float: left;display: inline-block;}
@@ -42,9 +39,6 @@
         margin-top: 19px;
         margin-bottom: 14px;
     }
-    .rside {
-        display: none;
-    } 
     .row {margin: 0;}
     #main .col-md-3, footer .col-md-3 {
         width: 25%;
