@@ -1,4 +1,4 @@
-
+@media (max-width: 1199px) {
     .navbar-nav {
     padding-top: 23px;
 }
@@ -19,19 +19,23 @@
     .genere .col-md-2 .fa {
         display: none;
     }
+    
+}
 
 @media (min-width: 768px) and (max-width: 991px) {
   nav .col-md-3 {width: 25%;float: left;display: inline-block;}
   nav .col-md-6 {width: 50%;float: left;display: inline-block;}
     .isearch {padding: 13px 0 13px 130px;font-size: 10px;}
     .navbar-nav > li:nth-child(2) {display: none;}
-    .navbar .btn-group.bootstrap-select {display: none;}
     .isearch {
         padding: 12px 0 11px 20px;
         font-size: 12px;
     }
 }
 
+@media (min-width: 992px) {
+    .navbar .btn-group.bootstrap-select {}
+}
 
 @media (max-width: 991px){
      .hide-until-tablet {display: none; visibility: hidden;}
@@ -39,6 +43,9 @@
         margin-top: 19px;
         margin-bottom: 14px;
     }
+    .rside {
+        display: none;
+    } 
     .row {margin: 0;}
     #main .col-md-3, footer .col-md-3 {
         width: 25%;
@@ -83,8 +90,11 @@
     top: 53px;
     padding: 0;
 }
-    .nav.navbar-nav {float: none;padding: 0;
-    text-align: center;}
+    .nav.navbar-nav {
+        float: none;
+        padding: 0;
+        text-align: center;
+    }
   .superlogo {
     max-width: 135px;
     margin-top: -7px;
@@ -102,9 +112,14 @@
     }
 }
 @media (min-width: 415px) and (max-width: 768px) {
-    #main .venduti .col-md-9.titolo {width: 75%;float: left;display: inline-block;}
-    #main .venduti .col-md-3.frecce {width: 25%;float: left;display: inline-block;}
-    #main .venduti .carousel-inner .col-md-3 {width: 25%;float: left;display: inline-block;}
+    #main .carousel-container .titolo {width: 70%;float: left;display: inline-block;}
+    #main .carousel-container .frecce {
+        width: 30%;
+        float: left;
+        display: inline-block;
+        padding : 0px;
+    }
+    #main .carousel-container .carousel-inner .col-md-3 {width: 25%;float: left;display: inline-block;}
 }
 @media (max-width: 414px) {
     #main .col-md-3, footer .col-md-3 {
@@ -112,7 +127,7 @@
         float: none;
             margin-bottom: 30px;
     }
-    .venduti {
+    .landing-carousel {
         display: none;
     }
     #main .col-md-3 img {
@@ -130,11 +145,11 @@
     }
     .genere .col-md-2 .photo img {
     max-height: 395px;
-}
+    }
     .btn-add.button-actions a{width: 100%;display: block;max-width: 100%;}
 }
 @media (max-width: 375px) {
-    .navbar .btn-group.bootstrap-select {display: none;}
+    .navbar .btn-group.bootstrap-select {}
     .isearch {
     padding: 10px 0 10px 20px;
     }
