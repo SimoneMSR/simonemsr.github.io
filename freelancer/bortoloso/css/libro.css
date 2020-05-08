@@ -1,0 +1,51 @@
+.dettagli, .copertina{
+	padding-left: 0px;
+}
+
+.copertina div{
+	padding: 10px;
+	padding-left: 0px;
+}
+
+.libro-prezzo{
+	color : #1d568e;
+}
+
+.stato-magazzino{
+	font-weight: bold;
+}
+
+.stato-magazzino.ok{
+	color : #009000;
+}
+
+.contenuto p {
+	text-align : justify;
+}
+
+.bottoni{
+	display: flex;
+}
+
+.bottoni .btn-add{
+	width: 20rem;
+	margin-right: 10px;
+}
+
+.bottoni .btn-add.buy a{
+	background-color: #febd69;
+}
+
+@media (max-width: 991px){
+
+	.copertina img{
+		margin : auto;
+	}
+	.bottoni .btn-add{
+		flex : 1;
+	}
+	.bottoni .btn-add a{
+		min-width: 100%;
+	}
+}
+

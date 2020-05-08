@@ -205,6 +205,9 @@ button.navbar-toggle {margin-right: 0;margin-top: 10px;
     border-radius: 2px;
     border-bottom: 2px solid #8c8c8c;
     max-width: 235px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .btn-add a:hover {
     color: #fff;
