@@ -4,7 +4,7 @@
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
           zoom: 4,
-          center: {"lng": 41.82, "lat":15.51},
+          center: {"lng": 41.81903644473791 , "lat":14.530251414996622},
           mapTypeId : "satellite"
         });
 
@@ -92,7 +92,7 @@
 
       function showTracker(){
            var watchID = null;
-           var pos = {"lng":41.82, "lat":15.51};
+           var pos = {"lng":41.81903644473791 , "lat":14.530251414996622};
            var infoWindow=new google.maps.InfoWindow({ content: "", 
                                                                position: pos});
 
