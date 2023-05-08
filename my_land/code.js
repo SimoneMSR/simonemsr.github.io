@@ -4,7 +4,7 @@
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
           zoom: 4,
-          center: {"lng":123.61, "lat":-22.14},
+          center: {"lng":41.82, "lat":15.51},
           mapTypeId : "satellite"
         });
 
@@ -72,14 +72,15 @@
       }
 
       function showLayers(map){
-                getData("assets/prova.geojson").then((data) => {
-          data = JSON.parse(data);
-          for(var feature of data.features){
-                      var path = new google.maps.Polygon({paths : convertArrayCoordinates(feature.geometry.coordinates[0]),
-                    strokeColor: '#FF0000',
-          strokeOpacity: 0.8,
-          strokeWeight: 3,
-          fillColor: '#FF0000',
+          getData("assets/prova.geojson").then((data) => {
+            data = JSON.parse(data);
+            for(var feature of data.features){
+              var fillColor = feature.id == 'mandrile' ? "#FFFF00" : '#FF0000';
+              var path = new google.maps.Polygon({paths : convertArrayCoordinates(feature.geometry.coordinates[0]),
+                  strokeColor: '#FF0000',
+                  strokeOpacity: 0.8,
+                  strokeWeight: 3,
+                  fillColor: fillColor,
           fillOpacity: 0.35});
           path.setMap(map);
           }
