@@ -75,12 +75,12 @@
           getData("assets/prova.geojson").then((data) => {
             data = JSON.parse(data);
             for(var feature of data.features){
-              var fillColor = feature.properties.type == 'highlight' ? "#FFFF00" : '#FF0000';
+              var color = feature.properties.type == 'highlight' ? "#FFFF00" : '#FF0000';
               var path = new google.maps.Polygon({paths : convertArrayCoordinates(feature.geometry.coordinates[0]),
-                  strokeColor: '#FF0000',
+                  strokeColor: color,
                   strokeOpacity: 0.8,
                   strokeWeight: 3,
-                  fillColor: fillColor,
+                  fillColor: color,
           fillOpacity: 0.35});
           path.setMap(map);
           }
