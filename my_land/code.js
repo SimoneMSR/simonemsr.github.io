@@ -75,7 +75,7 @@
           getData("assets/prova.geojson").then((data) => {
             data = JSON.parse(data);
             for(var feature of data.features){
-              var fillColor = feature.properties.id == 'mandrile' ? "#FFFF00" : '#FF0000';
+              var fillColor = feature.properties.type == 'highlight' ? "#FFFF00" : '#FF0000';
               var path = new google.maps.Polygon({paths : convertArrayCoordinates(feature.geometry.coordinates[0]),
                   strokeColor: '#FF0000',
                   strokeOpacity: 0.8,
