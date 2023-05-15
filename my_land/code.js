@@ -11,23 +11,33 @@
         infoWindow = new google.maps.InfoWindow;
 
         showLayers(map);
-        addLayer();
+        particelle = addParticelle();
         //showCurrentPosition();
         moveToCurrentPosition();
         showTracker();
       }
 
-      function addLayer(){
+      function changeEpsg(){
+            var epsg = document.getElementById("chooser").value;
+            if(particelle){
+                  particelle.removeFromMap(map);
+                  particelle = addParticelle(epsg);
+            }
+      }
+
+      function addParticelle(epsg){
+        epsg = epsg || "6706";
         var particelle = new WmsMapType(
         "Particelle Catastali",
         "https://wms.cartografia.agenziaentrate.gov.it/inspire/wms/ows01.php",
         {layers: "CP.CadastralParcel",
-      SR : "EPSG:6706"},
+            SR : "EPSG:" + epsg},
         {opacity: 0.5});
 
 
         particelle.addToMap(map);
         //map.overlayMapTypes.getArray()[0].setOpacity(0.5);
+        return particelle;
       }
 
       function moveToCurrentPosition(){
