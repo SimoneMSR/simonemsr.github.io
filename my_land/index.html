@@ -16,9 +16,15 @@
         margin: 0;
         padding: 0;
       }
+      
+      #chooser {
+        position : fixed;
+        right : 0;
+        top : 0;
+      }
     </style>
   </head>
-  <body>
+  <body> 
     <div id="map"></div>
     <script src="proj4.js"> </script>
     <script src="wmsMapType.js"> </script>
@@ -26,5 +32,15 @@
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6NIQq05uF1pXeraTiqtiLlraSLavxxAM&callback=initMap">
     </script>
+    <select id="chooser" onchange="changeEpsg()">
+      <option value="6706">6706</option>
+      <option value="4258">4258</option>
+      <option value="25832">25832</option>
+      <option value="25833">25833</option>
+      <option value="25834">25834</option>
+      <option value="3044">3044</option>
+      <option value="3045">3045</option>
+      <option value="3046">3046</option>
+    </select>
   </body>
 </html>
