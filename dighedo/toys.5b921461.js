@@ -1,2 +1,0 @@
-function e(e,r,t,a){Object.defineProperty(e,r,{get:t,set:a,enumerable:!0,configurable:!0})}var r=globalThis.parcelRequire63c3;(0,r.register)("b3SC8",function(t,a){Object.defineProperty(t.exports,"__esModule",{value:!0,configurable:!0}),e(t.exports,"default",()=>l),e(t.exports,"Toys",()=>l);var s=r("ayMG0"),n=r("acw62"),o=r("3sjLm");function l(e){let[r,t]=n.useState(e.value);return(0,o.useTranslation)(),(0,s.jsx)("div",{className:"",children:"toys"})}});
-//# sourceMappingURL=toys.5b921461.js.map
