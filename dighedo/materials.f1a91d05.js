@@ -1,0 +1,2 @@
+function e(e,r,a,t){Object.defineProperty(e,r,{get:a,set:t,enumerable:!0,configurable:!0})}var r=globalThis.parcelRequire63c3;(0,r.register)("eWcrc",function(a,t){Object.defineProperty(a.exports,"__esModule",{value:!0,configurable:!0}),e(a.exports,"default",()=>n),e(a.exports,"Materials",()=>n);var l=r("ayMG0"),s=r("acw62"),i=r("3sjLm");function n(e){let[r,a]=s.useState(e.value);return(0,i.useTranslation)(),(0,l.jsx)("div",{className:"",children:"materials"})}});
+//# sourceMappingURL=materials.f1a91d05.js.map
