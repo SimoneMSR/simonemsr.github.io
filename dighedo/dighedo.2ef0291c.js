@@ -752,6 +752,7 @@ const App = ()=>{
         columnNumber: 5
     }, undefined);
     else return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouter.BrowserRouter), {
+        basename: "dighedo",
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _navbar.NavbarDighedo), {}, void 0, false, {
                 fileName: "index.tsx",
