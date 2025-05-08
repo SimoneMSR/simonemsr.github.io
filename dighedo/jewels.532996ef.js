@@ -1,0 +1,2 @@
+function e(e,r,t,a){Object.defineProperty(e,r,{get:t,set:a,enumerable:!0,configurable:!0})}var r=globalThis.parcelRequire63c3;(0,r.register)("8Ic1d",function(t,a){Object.defineProperty(t.exports,"__esModule",{value:!0,configurable:!0}),e(t.exports,"default",()=>u),e(t.exports,"Jewels",()=>u);var l=r("ayMG0"),s=r("acw62"),n=r("3sjLm");function u(e){let[r,t]=s.useState(e.value);return(0,n.useTranslation)(),(0,l.jsx)("div",{className:"",children:"jewels"})}});
+//# sourceMappingURL=jewels.532996ef.js.map
