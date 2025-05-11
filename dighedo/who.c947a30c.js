@@ -1,2 +1,0 @@
-function e(e,r,t,a){Object.defineProperty(e,r,{get:t,set:a,enumerable:!0,configurable:!0})}var r=globalThis.parcelRequire63c3;(0,r.register)("cecek",function(t,a){Object.defineProperty(t.exports,"__esModule",{value:!0,configurable:!0}),e(t.exports,"default",()=>l),e(t.exports,"Who",()=>l);var n=r("ayMG0"),o=r("acw62"),c=r("3sjLm");function l(e){let[r,t]=o.useState(e.value);return(0,c.useTranslation)(),(0,n.jsx)("div",{className:"",children:"who"})}});
-//# sourceMappingURL=who.c947a30c.js.map
